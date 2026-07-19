@@ -8,7 +8,7 @@ author: "CashlessConsumer"
 
 # Build settings
 markdown: kramdown
-theme: null # Using custom layout
+theme: null
 permalink: /:year/:month/:title/
 paginate: 10
 paginate_path: "/page:num/"
@@ -17,14 +17,12 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
-# Exclude from processing
 exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
   - vendor
 
-# Default front matter
 defaults:
   -
     scope:

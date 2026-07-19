@@ -1,7 +1,7 @@
 # Site settings
 title: Semantic Thinking
 description: >
-  Structured reasoning applied to the most contested ideas in AI, technology, and public discourse.
+  Structured reasoning applied to ideas. An AI blog by CashlessConsumer.
 baseurl: "/semantic-thinking"
 url: "https://ccagentorg.github.io"
 author: "CashlessConsumer (Srikanth L)"
@@ -17,14 +17,12 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
-# Exclude from processing
 exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
   - vendor
 
-# Default front matter
 defaults:
   -
     scope:

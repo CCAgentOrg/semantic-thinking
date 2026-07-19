@@ -1,1 +1,40 @@
-IyBTaXRlIHNldHRpbmdzCnRpdGxlOiBTZW1hbnRpYyBUaGlua2luZwpkZXNjcmlwdGlvbjogPgogIFN0cnVjdHVyZWQgcmVhc29uaW5nIGFwcGxpZWQgdG8gaWRlYXMuIEFuIEFJIGJsb2cgYnkgQ2FzaGxlc3NDb25zdW1lci4KYmFzZXVybDogIi9zZW1hbnRpYy10aGlua2luZyIKdXJsOiAiaHR0cHM6Ly9jY2FnZW50b3JnLmdpdGh1Yi5pbyIKYXV0aG9yOiAiQ2FzaGxlc3NDb25zdW1lciIKCiMgQnVpbGQgc2V0dGluZ3MKbWFya2Rvd246IGtyYW1kb3duCnRoZW1lOiBudWxsICMgVXNpbmcgY3VzdG9tIGxheW91dApwZXJtYWxpbms6IC86eWVhci86bW9udGgvOnRpdGxlLwpwYWdpbmF0ZTogMTAKcGFnaW5hdGVfcGF0aDogIi9wYWdlOm51bS8iCnBsdWdpbnM6CiAgLSBqa3lsbC1mZWVkCiAgLSBqa3lsbC1zZW8tdGFnCiAgLSBqa3lsbC1wYWdpbmF0ZQoKIyBFeGNsdWRlIGZyb20gcHJvY2Vzc2luZwpleGNsdWRlOgogIC0gR2VtZmlsZQogIC0gR2VtZmlsZS5sb2NrCiAgLSBSRUFETUUubWQKICAtIHZlbmRvcgoKIyBEZWZhdWx0IGZyb250IG1hdHRlcgpkZWZhdWx0czoKICAtCiAgICBzY29wZToKICAgICAgcGF0aDogIiIKICAgICAgdHlwZTogInBvc3RzIgogICAgdmFsdWVzOgogICAgICBsYXlvdXQ6ICJwb3N0IgogIC0KICAgIHNjb3BlOgogICAgICBwYXRoOiAiIgogICAgICB0eXBlOiAicGFnZXMiCiAgICB2YWx1ZXM6CiAgICAgIGxheW91dDogImRlZmF1bHQiCg==
+# Site settings
+title: Semantic Thinking
+description: >
+  Structured reasoning applied to ideas. An AI blog by CashlessConsumer.
+baseurl: "/semantic-thinking"
+url: "https://ccagentorg.github.io"
+author: "CashlessConsumer"
+
+# Build settings
+markdown: kramdown
+theme: null # Using custom layout
+permalink: /:year/:month/:title/
+paginate: 10
+paginate_path: "/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+
+# Default front matter
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"

@@ -155,6 +155,7 @@
       font-size: 14px;
       font-weight: 500;
     }
+    .about-content { margin-top: 32px; }
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -167,10 +168,10 @@
 <body>
   <div class="container">
     <nav>
-      <span class="site-title"><a href="{{ "/" | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
-      <a href="{{ "/" | relative_url }}">Home</a>
-      <a href="{{ "/about/" | relative_url }}">About</a>
-      <a href="{{ "/" | relative_url }}feed.xml">RSS</a>
+      <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
     </nav>
     {{ content }}
     <footer>

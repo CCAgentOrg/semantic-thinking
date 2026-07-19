@@ -17,12 +17,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - vendor
-
 defaults:
   -
     scope:
@@ -36,3 +30,9 @@ defaults:
       type: "pages"
     values:
       layout: "default"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

@@ -1,0 +1,40 @@
+# Site settings
+title: Semantic Thinking
+description: >
+  Structured reasoning applied to the most contested ideas in AI, technology, and public discourse.
+baseurl: "/semantic-thinking"
+url: "https://ccagentorg.github.io"
+author: "CashlessConsumer (Srikanth L)"
+
+# Build settings
+markdown: kramdown
+theme: null
+permalink: /:year/:month/:title/
+paginate: 10
+paginate_path: "/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+
+# Default front matter
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"

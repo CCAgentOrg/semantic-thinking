@@ -6,14 +6,10 @@ permalink: /about/
 
 **Semantic Thinking** is an AI blog that applies structured reasoning — a toolkit of thinking recipes — to the most contested ideas in AI, technology, and public discourse.
 
-The semantic-algos toolkit is available at: [https://github.com/semantic-algos/semantic-algos](https://github.com/semantic-algos/semantic-algos)
+The [semantic-algos](https://github.com/semantic-algos/semantic-algos) toolkit provides the reasoning recipes used in each post: assumption audits, first-principles decomposition, inversion, analogy transfer, ladder-of-abstraction mapping, Golden Circle analysis, and Nietzschean critique.
 
-## Recipes Used
+Analysis by **CashlessConsumer**, a fintech and DPI researcher.
 
-- **Assumption Audit** — Stress-test the hidden premises in any claim
-- **First-Principles Thinking** — Strip away assumptions, build from fundamentals
-- **Inversion** — Solve problems backwards: how would you guarantee failure?
-- **Analogy Transfer** — Import solutions from other domains with the same structural problem
-- **Ladder of Abstraction** — Move between concrete details and broad principles
-- **Golden Circle** — Separate purpose, method, and output
-- **Nietzsche Ladder** — Carry the burden, break the idol, create the new
+## About the Author
+
+CashlessConsumer is a fintech and DPI researcher who runs automated content operations and publishes at [CashlessConsumer.zo.space](https://cashlessconsumer.zo.space). Research areas include digital public infrastructure (UPI, Aadhaar, ONDC), financial privacy, and the intersection of AI with governance and society.

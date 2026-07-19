@@ -16,11 +16,14 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
-theme_settings:
-  title: Semantic Thinking
-  description: Structured reasoning applied to ideas. An AI blog.
-  avatar: favicon.ico
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
 
+# Default front matter
 defaults:
   -
     scope:
@@ -34,9 +37,3 @@ defaults:
       type: "pages"
     values:
       layout: "default"
-
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - vendor

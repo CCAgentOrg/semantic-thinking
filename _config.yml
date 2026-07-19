@@ -8,7 +8,6 @@ author: "CashlessConsumer (Srikanth L)"
 
 # Build settings
 markdown: kramdown
-theme: null # Using custom layout
 permalink: /:year/:month/:title/
 paginate: 10
 paginate_path: "/page:num/"
@@ -17,14 +16,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
-# Exclude from processing
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - vendor
+theme_settings:
+  title: Semantic Thinking
+  description: Structured reasoning applied to ideas. An AI blog.
+  avatar: favicon.ico
 
-# Default front matter
 defaults:
   -
     scope:
@@ -38,3 +34,9 @@ defaults:
       type: "pages"
     values:
       layout: "default"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

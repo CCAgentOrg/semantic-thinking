@@ -4,5 +4,6 @@ _site/
 .jekyll-metadata
 vendor/
 Gemfile.lock
-*.gem
 .DS_Store
+*.swp
+*.swo

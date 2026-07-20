@@ -18,6 +18,7 @@
       --bg-card: #fff;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       --font-mono: "SF Mono", "Cascadia Code", Consolas, monospace;
+      --nav-h: 48px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -40,59 +41,51 @@
       -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 720px;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 60px 24px 80px;
     }
 
     /* ── Navigation ── */
-    .nav-wrapper {
-      display: flex;
-      align-items: center;
-      margin-bottom: 48px;
-      gap: 0;
-    }
-    .site-title {
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--fg);
-      margin-right: auto;
-      text-decoration: none;
-    }
-    .nav-links {
+    nav {
       display: flex;
       gap: 24px;
+      margin-bottom: 48px;
       align-items: center;
+      position: relative;
     }
-    .nav-links a {
+    nav a {
       color: var(--fg-muted);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
       transition: color 0.15s;
     }
-    .nav-links a:hover { color: var(--accent); }
+    nav a:hover { color: var(--accent); }
+    nav .site-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--fg);
+      margin-right: auto;
+    }
     .nav-toggle {
       display: none;
       background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 10px;
+      border: none;
       cursor: pointer;
+      padding: 4px;
       color: var(--fg);
-      font-size: 18px;
-      line-height: 1;
     }
-    .nav-toggle:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+    .nav-toggle svg {
+      display: block;
+      width: 24px;
+      height: 24px;
     }
 
     /* ── Typography ── */
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
-    h4 { font-size: 1rem; margin-top: 20px; margin-bottom: 6px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
@@ -128,25 +121,20 @@
       background: var(--border);
       color: var(--fg-muted);
     }
+
+    /* ── Home intro ── */
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
 
     /* ── Post content ── */
-    .post-content { max-width: 100%; }
+    .post-content { max-width: 680px; }
     .post-content h1 { margin-top: 40px; }
-    .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-    .post-content blockquote {
-      border-left: 3px solid var(--accent);
-      padding-left: 16px;
-      margin-left: 0;
-      color: var(--fg-muted);
-      font-style: italic;
+    .post-content h2 {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-top: 40px;
     }
-    .post-content ul, .post-content ol { margin: 0 0 16px 24px; }
-    .post-content li { margin-bottom: 4px; }
-
-    /* ── Code ── */
     .post-content code {
       font-family: var(--font-mono);
       font-size: 14px;
@@ -154,6 +142,7 @@
       padding: 2px 6px;
       border-radius: 3px;
       border: 1px solid var(--border);
+      word-break: break-word;
     }
     .post-content pre {
       overflow-x: auto;
@@ -161,8 +150,6 @@
       border-radius: 6px;
       border: 1px solid var(--border);
       background: var(--bg-card);
-      font-size: 13px;
-      line-height: 1.5;
       margin: 16px 0;
     }
     .post-content pre code {
@@ -170,82 +157,93 @@
       padding: 16px;
       border: none;
       background: none;
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: normal;
+    }
+    .post-content blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+      margin-left: 0;
+      color: var(--fg-muted);
+      font-style: italic;
     }
 
     /* ── Images ── */
-    .post-content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 6px;
-      margin: 16px 0;
-      display: block;
-      cursor: zoom-in;
-      transition: opacity 0.3s, box-shadow 0.3s;
-    }
-    .post-content img:hover {
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    }
-    .post-content figure {
+    .post-content .img-container {
       margin: 20px 0;
       text-align: center;
     }
-    .post-content figcaption {
+    .post-content .img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      cursor: zoom-in;
+      transition: filter 0.2s;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .post-content .img-container img:hover {
+      filter: brightness(0.95);
+    }
+    @media (prefers-color-scheme: dark) {
+      .post-content .img-container img {
+        border-color: #333;
+      }
+      .post-content .img-container img:hover {
+        filter: brightness(1.1);
+      }
+    }
+    .post-content .img-caption {
+      display: block;
+      margin-top: 6px;
       font-size: 13px;
       color: var(--fg-muted);
-      margin-top: 4px;
+      line-height: 1.4;
     }
 
-    /* Dark mode: subtle border so dark-background diagrams don't bleed into the page background */
-    @media (prefers-color-scheme: dark) {
-      .post-content img {
-        border: 1px solid var(--border);
-      }
+    /* ── Image lightbox (click-to-expand) ── */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.85);
+      cursor: zoom-out;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+    .lightbox-overlay.active { display: flex; }
+    .lightbox-overlay img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     }
 
     /* ── Tables ── */
-    .table-wrapper {
+    .table-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin: 16px 0;
       border-radius: 6px;
       border: 1px solid var(--border);
     }
-    .table-wrapper table {
+    .post-content table {
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      margin: 0;
-      min-width: 500px; /* force scroll on narrow displays */
+      min-width: max-content;
     }
-    .table-wrapper th, .table-wrapper td {
+    .post-content th, .post-content td {
       padding: 8px 12px;
       border: 1px solid var(--border);
       text-align: left;
-      white-space: nowrap;
     }
-    .table-wrapper th { background: var(--bg-card); font-weight: 600; }
+    .post-content th { background: var(--bg-card); font-weight: 600; }
     .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-
-    /* ── Lightbox (click-to-expand) ── */
-    .lightbox-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 9999;
-      cursor: zoom-out;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-    }
-    .lightbox-overlay.open { display: flex; }
-    .lightbox-overlay img {
-      max-width: 95%;
-      max-height: 95%;
-      border-radius: 8px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
-      object-fit: contain;
-    }
 
     /* ── Pagination ── */
     .pagination {
@@ -259,6 +257,7 @@
       font-size: 14px;
       font-weight: 500;
     }
+
     .about-content { margin-top: 32px; }
 
     /* ── Footer ── */
@@ -270,153 +269,188 @@
       color: var(--fg-muted);
     }
 
-    /* ── Responsive: mobile ── */
-    @media (max-width: 640px) {
-      .container { padding: 24px 16px 60px; }
-      .nav-wrapper { margin-bottom: 32px; }
-      .site-title { font-size: 15px; }
-      .nav-links {
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .container {
+        padding: 28px 16px 60px;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 0;
+        margin-bottom: 28px;
+      }
+      nav .site-title {
+        font-size: 15px;
+      }
+      .nav-toggle {
+        display: block;
+        margin-left: auto;
+      }
+      nav .nav-links {
         display: none;
-        position: absolute;
-        top: 56px;
-        left: 0; right: 0;
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
+        width: 100%;
         flex-direction: column;
         gap: 0;
-        padding: 8px 0;
-        z-index: 100;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        margin-top: 12px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
       }
-      .nav-links.open { display: flex; }
-      .nav-links a {
+      nav .nav-links.open { display: flex; }
+      nav .nav-links a {
         display: block;
-        padding: 12px 20px;
+        padding: 12px 16px;
         font-size: 15px;
-        width: 100%;
         border-bottom: 1px solid var(--border);
       }
-      .nav-links a:last-child { border-bottom: none; }
-      .nav-toggle { display: block; }
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; }
-      body { font-size: 15px; }
-      .home-intro h1 { font-size: 1.6rem; }
-      .post-title { font-size: 1.05rem; }
-      .post-content img { border-radius: 4px; }
-      .table-wrapper th, .table-wrapper td { padding: 6px 8px; font-size: 13px; }
+      nav .nav-links a:last-child { border-bottom: none; }
 
-      /* Prevent lightbox from being too tight on mobile */
-      .lightbox-overlay { padding: 8px; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; margin-top: 24px; }
+      .home-intro h1 { font-size: 1.6rem; }
+      .home-intro p { font-size: 14px; }
+      .post-title { font-size: 1.1rem; }
+      .post-content { font-size: 15px; }
+      .post-content pre code { font-size: 12px; padding: 12px; }
+
+      .post-content .img-container {
+        margin: 16px -8px;
+      }
+      .post-content .img-container img {
+        border-radius: 4px;
+      }
+
+      footer {
+        margin-top: 40px;
+      }
+
+      .lightbox-overlay {
+        padding: 12px;
+      }
     }
 
     @media (max-width: 400px) {
-      .container { padding: 16px 12px 48px; }
       h1 { font-size: 1.3rem; }
-      body { font-size: 14px; }
-      .nav-wrapper { margin-bottom: 24px; }
+      .container { padding: 20px 12px 48px; }
+      .post-content { font-size: 14px; }
+      .post-content pre code { font-size: 11px; }
     }
 
-    /* ── Skip link for accessibility ── */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: var(--accent);
-      color: #fff;
-      padding: 8px 16px;
-      z-index: 1000;
-      transition: top 0.15s;
-    }
-    .skip-link:focus { top: 0; }
-
-    /* ── Focus ── */
-    a:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-      border-radius: 2px;
+    /* ── Print ── */
+    @media print {
+      .nav-toggle, .lightbox-overlay { display: none !important; }
+      .post-content .img-container img { cursor: default; border: 1px solid #ccc; }
+      body { font-size: 12pt; }
+      .container { max-width: 100%; padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to content</a>
   <div class="container">
-    <nav class="nav-wrapper" role="navigation" aria-label="Main">
-      <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      <div class="nav-links" id="nav-links">
+    <nav>
+      <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="nav-links" id="navLinks">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/about/' | relative_url }}">About</a>
         <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
       </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
-        <span id="nav-icon">☰</span>
-      </button>
     </nav>
-    <main id="main-content">
-      {{ content }}
-    </main>
+    {{ content }}
     <footer>
       <p>{{ site.title }} &mdash; by {{ site.author }}. Thoughts on AI, technology, and the assumptions we carry.</p>
     </footer>
   </div>
 
-  <!-- Lightbox container -->
   <div class="lightbox-overlay" id="lightbox">
-    <img src="" alt="" id="lightbox-img">
+    <img id="lightboxImg" src="" alt="">
   </div>
 
   <script>
     (function() {
-      /* ── Mobile nav toggle ── */
-      var toggle = document.getElementById('nav-toggle');
-      var links  = document.getElementById('nav-links');
-      var icon   = document.getElementById('nav-icon');
+      // ── Mobile nav toggle ──
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
       if (toggle && links) {
-        toggle.addEventListener('click', function() {
-          var open = links.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-          if (icon) icon.textContent = open ? '✕' : '☰';
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          links.classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+          if (links.classList.contains('open') && !links.contains(e.target) && e.target !== toggle) {
+            links.classList.remove('open');
+          }
         });
       }
 
-      /* ── Click-to-zoom lightbox for images ── */
+      // ── Image lightbox (click-to-zoom) ──
       var lightbox = document.getElementById('lightbox');
-      var lightboxImg = document.getElementById('lightbox-img');
+      var lightboxImg = document.getElementById('lightboxImg');
       if (lightbox && lightboxImg) {
-        // Close on click/escape
-        lightbox.addEventListener('click', function() {
-          lightbox.classList.remove('open');
+        lightbox.addEventListener('click', function(e) {
+          if (e.target === lightbox || e.target === lightboxImg) {
+            lightbox.classList.remove('active');
+          }
         });
         document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') lightbox.classList.remove('open');
+          if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            lightbox.classList.remove('active');
+          }
         });
-        // Only attach to post images (not nav/logo images)
-        var images = document.querySelectorAll('.post-content img');
-        for (var i = 0; i < images.length; i++) {
-          (function(img) {
-            img.addEventListener('click', function(e) {
-              e.stopPropagation();
-              lightboxImg.src = img.src;
-              lightboxImg.alt = img.alt;
-              lightbox.classList.add('open');
-            });
-          })(images[i]);
+      }
+
+      // ── Image enhancement ──
+      var images = document.querySelectorAll('.post-content img');
+      for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+
+        // Wrap standalone images in .img-container with caption
+        if (!img.parentElement.classList.contains('img-container')) {
+          var wrapper = document.createElement('div');
+          wrapper.className = 'img-container';
+
+          var caption = document.createElement('span');
+          caption.className = 'img-caption';
+          caption.textContent = img.getAttribute('alt') || '';
+
+          img.parentElement.insertBefore(wrapper, img);
+          wrapper.appendChild(img);
+          wrapper.appendChild(caption);
         }
+
+        // Click-to-zoom
+        (function(imgEl) {
+          imgEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (lightbox && lightboxImg) {
+              lightboxImg.src = imgEl.src;
+              lightboxImg.alt = imgEl.alt || '';
+              lightbox.classList.add('active');
+            }
+          });
+        })(img);
+
+        // Lazy loading
+        img.setAttribute('loading', 'lazy');
       }
 
-      /* ── Lazy loading: use native loading=lazy on images that support it ── */
-      var imgs = document.querySelectorAll('.post-content img:not([loading])');
-      for (var i = 0; i < imgs.length; i++) {
-        imgs[i].setAttribute('loading', 'lazy');
-      }
-
-      /* ── Wrap tables in a scrollable container ── */
-      var tables = document.querySelectorAll('.post-content > table');
-      for (var i = 0; i < tables.length; i++) {
-        var wrapper = document.createElement('div');
-        wrapper.className = 'table-wrapper';
-        tables[i].parentNode.insertBefore(wrapper, tables[i]);
-        wrapper.appendChild(tables[i]);
+      // ── Table wrapper ──
+      var tables = document.querySelectorAll('.post-content table');
+      for (var j = 0; j < tables.length; j++) {
+        var table = tables[j];
+        if (!table.parentElement.classList.contains('table-wrap')) {
+          var wrap = document.createElement('div');
+          wrap.className = 'table-wrap';
+          table.parentElement.insertBefore(wrap, table);
+          wrap.appendChild(table);
+        }
       }
     })();
   </script>

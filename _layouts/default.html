@@ -40,76 +40,64 @@
       -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 60px 24px 80px;
-    }
-    /* === RESPONSIVE CONTAINER === */
-    @media (max-width: 480px) {
-      .container { padding: 32px 16px 64px; }
+      padding: 48px 24px 80px;
     }
 
-    /* === NAVIGATION === */
-    nav {
+    /* ── Navigation ── */
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 48px;
+      gap: 0;
+    }
+    .site-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--fg);
+      margin-right: auto;
+      text-decoration: none;
+    }
+    .nav-links {
       display: flex;
       gap: 24px;
-      margin-bottom: 48px;
       align-items: center;
     }
-    nav a {
+    .nav-links a {
       color: var(--fg-muted);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
       transition: color 0.15s;
     }
-    nav a:hover { color: var(--accent); }
-    nav .site-title {
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--fg);
-      margin-right: auto;
-    }
+    .nav-links a:hover { color: var(--accent); }
     .nav-toggle {
       display: none;
       background: none;
-      border: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
       cursor: pointer;
-      padding: 4px;
-      color: var(--fg-muted);
+      color: var(--fg);
+      font-size: 18px;
+      line-height: 1;
     }
-    .nav-toggle svg { display: block; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    @media (max-width: 560px) {
-      nav { flex-wrap: wrap; gap: 12px; }
-      .nav-toggle { display: block; }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 8px;
-        padding: 12px 0 4px;
-        border-top: 1px solid var(--border);
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { font-size: 15px; padding: 6px 0; width: 100%; }
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
-    /* === TYPOGRAPHY === */
+    /* ── Typography ── */
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
+    h4 { font-size: 1rem; margin-top: 20px; margin-bottom: 6px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
-    @media (max-width: 480px) {
-      h1 { font-size: 1.4rem; }
-      h2 { font-size: 1.15rem; margin-top: 24px; }
-      h3 { font-size: 1rem; }
-      body { font-size: 15px; }
-    }
 
-    /* === POST LIST (HOME) === */
+    /* ── Post list (home) ── */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -129,10 +117,6 @@
     .post-title a { color: var(--fg); }
     .post-title a:hover { color: var(--accent); }
     .post-excerpt { font-size: 14px; color: var(--fg-muted); line-height: 1.6; }
-    @media (max-width: 480px) {
-      .post-title { font-size: 1.05rem; }
-      .post-excerpt { font-size: 13px; }
-    }
     .tag {
       display: inline-block;
       font-size: 11px;
@@ -144,24 +128,25 @@
       background: var(--border);
       color: var(--fg-muted);
     }
-
-    /* === HOME INTRO === */
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
-    @media (max-width: 480px) {
-      .home-intro { margin-bottom: 32px; }
-      .home-intro h1 { font-size: 1.5rem; }
-    }
 
-    /* === POST CONTENT === */
-    .post-content { max-width: 680px; }
+    /* ── Post content ── */
+    .post-content { max-width: 100%; }
     .post-content h1 { margin-top: 40px; }
     .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-    @media (max-width: 480px) {
-      .post-content h1 { margin-top: 28px; }
-      .post-content h2 { font-size: 1.05rem; }
+    .post-content blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+      margin-left: 0;
+      color: var(--fg-muted);
+      font-style: italic;
     }
+    .post-content ul, .post-content ol { margin: 0 0 16px 24px; }
+    .post-content li { margin-bottom: 4px; }
+
+    /* ── Code ── */
     .post-content code {
       font-family: var(--font-mono);
       font-size: 14px;
@@ -170,13 +155,7 @@
       border-radius: 3px;
       border: 1px solid var(--border);
     }
-    pre {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .post-content pre code {
-      display: block;
-      padding: 16px;
+    .post-content pre {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       border-radius: 6px;
@@ -184,105 +163,91 @@
       background: var(--bg-card);
       font-size: 13px;
       line-height: 1.5;
+      margin: 16px 0;
     }
-    .post-content blockquote {
-      border-left: 3px solid var(--accent);
-      padding-left: 16px;
-      margin-left: 0;
-      color: var(--fg-muted);
-      font-style: italic;
+    .post-content pre code {
+      display: block;
+      padding: 16px;
+      border: none;
+      background: none;
     }
 
-    /* === IMAGES === */
+    /* ── Images ── */
     .post-content img {
       max-width: 100%;
       height: auto;
       border-radius: 6px;
       margin: 16px 0;
       display: block;
-      border: 1px solid var(--border);
-      transition: opacity 0.3s ease, box-shadow 0.2s;
       cursor: zoom-in;
+      transition: opacity 0.3s, box-shadow 0.3s;
     }
     .post-content img:hover {
-      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
-    .post-content img.lazyloading {
-      opacity: 0;
+    .post-content figure {
+      margin: 20px 0;
+      text-align: center;
     }
-    .post-content img.lazyloaded {
-      opacity: 1;
-      transition: opacity 0.3s ease;
+    .post-content figcaption {
+      font-size: 13px;
+      color: var(--fg-muted);
+      margin-top: 4px;
     }
-    /* Lightbox overlay */
+
+    /* Dark mode: subtle border so dark-background diagrams don't bleed into the page background */
+    @media (prefers-color-scheme: dark) {
+      .post-content img {
+        border: 1px solid var(--border);
+      }
+    }
+
+    /* ── Tables ── */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 16px 0;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 0;
+      min-width: 500px; /* force scroll on narrow displays */
+    }
+    .table-wrapper th, .table-wrapper td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .table-wrapper th { background: var(--bg-card); font-weight: 600; }
+    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    /* ── Lightbox (click-to-expand) ── */
     .lightbox-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.85);
       z-index: 9999;
+      cursor: zoom-out;
       justify-content: center;
       align-items: center;
       padding: 24px;
-      cursor: zoom-out;
     }
     .lightbox-overlay.open { display: flex; }
     .lightbox-overlay img {
-      max-width: 100%;
-      max-height: 95vh;
+      max-width: 95%;
+      max-height: 95%;
+      border-radius: 8px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
       object-fit: contain;
-      border-radius: 4px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.3);
-      cursor: zoom-out;
-    }
-    .lightbox-close {
-      position: fixed;
-      top: 16px;
-      right: 24px;
-      color: #fff;
-      font-size: 32px;
-      cursor: pointer;
-      z-index: 10000;
-      background: none;
-      border: none;
-      line-height: 1;
-      opacity: 0.7;
-      transition: opacity 0.15s;
-    }
-    .lightbox-close:hover { opacity: 1; }
-    @media (max-width: 480px) {
-      .lightbox-overlay { padding: 12px; }
     }
 
-    /* === TABLES (horizontal scroll on mobile) === */
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 16px 0;
-    }
-    .table-wrapper::-webkit-scrollbar { height: 6px; }
-    .table-wrapper::-webkit-scrollbar-track { background: var(--bg); }
-    .table-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    .post-content table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-      min-width: 420px;
-    }
-    .post-content th, .post-content td {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      text-align: left;
-      white-space: nowrap;
-    }
-    .post-content th { background: var(--bg-card); font-weight: 600; }
-    @media (max-width: 480px) {
-      .post-content table { font-size: 12px; }
-      .post-content th, .post-content td { padding: 6px 8px; }
-    }
-    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-
-    /* === PAGINATION === */
+    /* ── Pagination ── */
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -296,7 +261,7 @@
     }
     .about-content { margin-top: 32px; }
 
-    /* === FOOTER === */
+    /* ── Footer ── */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -305,93 +270,153 @@
       color: var(--fg-muted);
     }
 
-    /* === PRINT === */
-    @media print {
-      .nav-toggle, .lightbox-overlay, .lightbox-close { display: none !important; }
-      .container { padding: 0 !important; max-width: 100% !important; }
-      img { break-inside: avoid; max-width: 100% !important; }
+    /* ── Responsive: mobile ── */
+    @media (max-width: 640px) {
+      .container { padding: 24px 16px 60px; }
+      .nav-wrapper { margin-bottom: 32px; }
+      .site-title { font-size: 15px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0; right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 0;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        display: block;
+        padding: 12px 20px;
+        font-size: 15px;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links a:last-child { border-bottom: none; }
+      .nav-toggle { display: block; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; }
+      body { font-size: 15px; }
+      .home-intro h1 { font-size: 1.6rem; }
+      .post-title { font-size: 1.05rem; }
+      .post-content img { border-radius: 4px; }
+      .table-wrapper th, .table-wrapper td { padding: 6px 8px; font-size: 13px; }
+
+      /* Prevent lightbox from being too tight on mobile */
+      .lightbox-overlay { padding: 8px; }
+    }
+
+    @media (max-width: 400px) {
+      .container { padding: 16px 12px 48px; }
+      h1 { font-size: 1.3rem; }
+      body { font-size: 14px; }
+      .nav-wrapper { margin-bottom: 24px; }
+    }
+
+    /* ── Skip link for accessibility ── */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 1000;
+      transition: top 0.15s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Focus ── */
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
     }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <div class="container">
-    <nav>
-      <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="3" y1="5" x2="17" y2="5"/>
-          <line x1="3" y1="10" x2="17" y2="10"/>
-          <line x1="3" y1="15" x2="17" y2="15"/>
-        </svg>
-      </button>
-      <div class="nav-links" id="navLinks">
+    <nav class="nav-wrapper" role="navigation" aria-label="Main">
+      <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <div class="nav-links" id="nav-links">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/about/' | relative_url }}">About</a>
         <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
       </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span id="nav-icon">☰</span>
+      </button>
     </nav>
-    {{ content }}
+    <main id="main-content">
+      {{ content }}
+    </main>
     <footer>
       <p>{{ site.title }} &mdash; by {{ site.author }}. Thoughts on AI, technology, and the assumptions we carry.</p>
     </footer>
   </div>
 
-  <!-- Lightbox for image zoom -->
-  <div class="lightbox-overlay" id="lightboxOverlay">
-    <button class="lightbox-close" id="lightboxClose">&times;</button>
-    <img id="lightboxImg" src="" alt="" />
+  <!-- Lightbox container -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
   </div>
 
   <script>
     (function() {
-      // --- Mobile nav toggle ---
-      var toggle = document.getElementById('navToggle');
-      var links = document.getElementById('navLinks');
+      /* ── Mobile nav toggle ── */
+      var toggle = document.getElementById('nav-toggle');
+      var links  = document.getElementById('nav-links');
+      var icon   = document.getElementById('nav-icon');
       if (toggle && links) {
         toggle.addEventListener('click', function() {
-          links.classList.toggle('open');
+          var open = links.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (icon) icon.textContent = open ? '✕' : '☰';
         });
       }
 
-      // --- Lightbox: click any post-content image to zoom ---
-      var overlay = document.getElementById('lightboxOverlay');
-      var lightboxImg = document.getElementById('lightboxImg');
-      var closeBtn = document.getElementById('lightboxClose');
-
-      if (overlay && lightboxImg && closeBtn) {
-        document.querySelectorAll('.post-content img').forEach(function(img) {
-          img.addEventListener('click', function(e) {
-            if (img.closest('.lightbox-overlay')) return;
-            lightboxImg.src = img.getAttribute('data-src') || img.src;
-            lightboxImg.alt = img.alt;
-            overlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-          });
-        });
-
-        function closeLightbox() {
-          overlay.classList.remove('open');
-          document.body.style.overflow = '';
-        }
-
-        closeBtn.addEventListener('click', closeLightbox);
-        overlay.addEventListener('click', function(e) {
-          if (e.target === overlay) closeLightbox();
+      /* ── Click-to-zoom lightbox for images ── */
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      if (lightbox && lightboxImg) {
+        // Close on click/escape
+        lightbox.addEventListener('click', function() {
+          lightbox.classList.remove('open');
         });
         document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'Escape') lightbox.classList.remove('open');
         });
+        // Only attach to post images (not nav/logo images)
+        var images = document.querySelectorAll('.post-content img');
+        for (var i = 0; i < images.length; i++) {
+          (function(img) {
+            img.addEventListener('click', function(e) {
+              e.stopPropagation();
+              lightboxImg.src = img.src;
+              lightboxImg.alt = img.alt;
+              lightbox.classList.add('open');
+            });
+          })(images[i]);
+        }
       }
 
-      // --- Lazy-load images with native lazy if available ---
-      var imgs = document.querySelectorAll('.post-content img[loading="lazy"]');
-      if ('loading' in HTMLImageElement.prototype) {
-        // Native lazy loading already handled by the attribute
-      } else {
-        // Fallback for older browsers — load all immediately
-        imgs.forEach(function(img) {
-          if (img.dataset.src) img.src = img.dataset.src;
-        });
+      /* ── Lazy loading: use native loading=lazy on images that support it ── */
+      var imgs = document.querySelectorAll('.post-content img:not([loading])');
+      for (var i = 0; i < imgs.length; i++) {
+        imgs[i].setAttribute('loading', 'lazy');
+      }
+
+      /* ── Wrap tables in a scrollable container ── */
+      var tables = document.querySelectorAll('.post-content > table');
+      for (var i = 0; i < tables.length; i++) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-wrapper';
+        tables[i].parentNode.insertBefore(wrapper, tables[i]);
+        wrapper.appendChild(tables[i]);
       }
     })();
   </script>

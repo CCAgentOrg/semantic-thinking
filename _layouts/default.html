@@ -18,7 +18,6 @@
       --bg-card: #fff;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       --font-mono: "SF Mono", "Cascadia Code", Consolas, monospace;
-      --container-pad: 24px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -41,17 +40,16 @@
       -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 720px;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 48px var(--container-pad) 80px;
+      padding: 60px 24px 80px;
     }
-    /* ===== Navigation ===== */
     nav {
       display: flex;
       gap: 24px;
       margin-bottom: 48px;
       align-items: center;
-      position: relative;
+      flex-wrap: wrap;
     }
     nav a {
       color: var(--fg-muted);
@@ -67,28 +65,26 @@
       color: var(--fg);
       margin-right: auto;
     }
-    nav .site-title a { color: var(--fg); }
     .nav-toggle {
       display: none;
       background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 10px;
+      border: none;
+      color: var(--fg-muted);
+      font-size: 24px;
       cursor: pointer;
-      color: var(--fg);
-      font-size: 18px;
+      padding: 4px 8px;
       line-height: 1;
+      border-radius: 4px;
+      transition: background 0.15s;
     }
     .nav-toggle:hover { background: var(--border); }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    /* ===== Typography ===== */
+    .nav-links { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
-    /* ===== Post list (home) ===== */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -102,7 +98,6 @@
       display: flex;
       gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
     }
     .post-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
     .post-title a { color: var(--fg); }
@@ -119,12 +114,10 @@
       background: var(--border);
       color: var(--fg-muted);
     }
-    /* ===== Home intro ===== */
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
-    /* ===== Post content ===== */
-    .post-content { max-width: 100%; }
+    .post-content { max-width: 680px; }
     .post-content h1 { margin-top: 40px; }
     .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
     .post-content code {
@@ -139,12 +132,14 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       border-radius: 6px;
-      border: 1px solid var(--border);
       background: var(--bg-card);
+      border: 1px solid var(--border);
     }
     .post-content pre code {
       display: block;
       padding: 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       font-size: 13px;
       line-height: 1.5;
       border: none;
@@ -157,62 +152,74 @@
       color: var(--fg-muted);
       font-style: italic;
     }
-    /* ===== Images ===== */
-    .post-content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 6px;
+    /* Image container for large diagrams */
+    .post-content .img-container {
       margin: 16px 0;
-      display: block;
-      border: 1px solid var(--border);
-      transition: opacity 0.3s, transform 0.2s;
+      border-radius: 8px;
+      overflow: hidden;
       cursor: zoom-in;
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: border-color 0.2s;
     }
-    .post-content img:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    .post-content .img-container:hover {
+      border-color: var(--accent);
     }
-    .post-content img[loading="lazy"] {
-      opacity: 0;
+    .post-content .img-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: contain;
+      border-radius: 0;
+      margin: 0;
+      transition: opacity 0.3s;
     }
-    .post-content img.loaded {
-      opacity: 1;
-    }
-    .post-content figure {
-      margin: 24px 0;
-      text-align: center;
-    }
-    .post-content figure img {
-      margin: 0 auto 8px;
-    }
-    .post-content figure figcaption {
+    .post-content .img-container img.loading { opacity: 0; }
+    .post-content .img-container img.loaded { opacity: 1; }
+    .post-content .img-container::after {
+      content: "↗";
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
       font-size: 13px;
       color: var(--fg-muted);
-      font-style: italic;
+      opacity: 0.6;
+      pointer-events: none;
     }
-    /* Image lightbox overlay */
-    .lightbox-overlay {
+    /* Lightbox overlay for zoomed images */
+    .img-lightbox {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.88);
       z-index: 9999;
-      justify-content: center;
-      align-items: center;
+      background: rgba(0,0,0,0.85);
       cursor: zoom-out;
-      padding: 32px;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
-    .lightbox-overlay.active {
-      display: flex;
-    }
-    .lightbox-overlay img {
+    .img-lightbox.active { display: flex; }
+    .img-lightbox img {
       max-width: 95vw;
       max-height: 95vh;
       object-fit: contain;
       border-radius: 4px;
       box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     }
-    /* ===== Tables ===== */
-    .table-wrapper {
+    /* Inline images (non-container) */
+    .post-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin: 16px 0;
+    }
+    @media (prefers-color-scheme: dark) {
+      .post-content img, .post-content .img-container { border-color: var(--border); }
+    }
+    /* Table horizontal scroll */
+    .post-content .table-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin: 16px 0;
@@ -223,7 +230,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      min-width: 480px;
+      min-width: 500px;
     }
     .post-content th, .post-content td {
       padding: 8px 12px;
@@ -233,9 +240,6 @@
     }
     .post-content th { background: var(--bg-card); font-weight: 600; }
     .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-    .post-content ul, .post-content ol { padding-left: 24px; margin-bottom: 16px; }
-    .post-content li { margin-bottom: 6px; }
-    /* ===== Pagination ===== */
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -243,9 +247,11 @@
       padding-top: 24px;
       border-top: 1px solid var(--border);
     }
-    .pagination a { font-size: 14px; font-weight: 500; }
+    .pagination a {
+      font-size: 14px;
+      font-weight: 500;
+    }
     .about-content { margin-top: 32px; }
-    /* ===== Footer ===== */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -253,50 +259,62 @@
       font-size: 13px;
       color: var(--fg-muted);
     }
-    /* ===== Responsive ===== */
+    /* ===== Responsive Breakpoints ===== */
     @media (max-width: 640px) {
-      :root { --container-pad: 16px; }
-      .container { padding-top: 24px; }
-      nav { flex-wrap: wrap; margin-bottom: 32px; }
+      .container { padding: 32px 16px 60px; }
+      body { font-size: 15px; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; margin-top: 24px; }
+      .home-intro h1 { font-size: 1.6rem; }
+      .home-intro p { font-size: 14px; }
+      .post-title { font-size: 1.1rem; }
+      .post-content { font-size: 15px; }
+      .post-content h1 { font-size: 1.5rem; margin-top: 28px; }
+      .post-content h2 { font-size: 1.2rem; }
+      .post-content code { font-size: 13px; }
+      .post-content pre code { font-size: 12px; padding: 12px; }
+      /* Stack nav on mobile */
+      nav { gap: 0; }
       .nav-toggle { display: block; }
       .nav-links {
         display: none;
-        flex-direction: column;
         width: 100%;
-        gap: 0;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        overflow: hidden;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 0 4px;
       }
       .nav-links.open { display: flex; }
-      .nav-links a {
-        padding: 12px 16px;
-        font-size: 15px;
-        border-bottom: 1px solid var(--border);
-      }
-      .nav-links a:last-child { border-bottom: none; }
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; }
-      .home-intro h1 { font-size: 1.6rem; }
-      .post-title { font-size: 1.1rem; }
-      .post-content pre code { font-size: 12px; padding: 12px; }
-      .post-content figure { margin: 16px 0; }
-      .post-content table { font-size: 13px; }
-      .post-content img { margin: 12px 0; }
-      .lightbox-overlay { padding: 16px; }
+      .nav-links a { font-size: 15px; padding: 6px 0; }
+      .pagination { flex-direction: column; gap: 12px; }
+      .post-content img { border-radius: 4px; margin: 12px 0; }
+      .post-content .img-container img { max-height: 320px; }
     }
     @media (max-width: 480px) {
-      .post-meta { font-size: 12px; }
+      .container { padding: 24px 12px 48px; }
+      body { font-size: 14px; line-height: 1.65; }
+      h1 { font-size: 1.35rem; }
+      h2 { font-size: 1.1rem; }
+      .home-intro h1 { font-size: 1.4rem; }
+      .post-meta { font-size: 12px; flex-wrap: wrap; }
       .post-excerpt { font-size: 13px; }
-      .home-intro p { font-size: 14px; }
+      .post-content { font-size: 14px; }
+      .post-content .img-container img { max-height: 240px; }
+      .img-lightbox { padding: 12px; }
+      .img-lightbox img { max-width: 98vw; max-height: 98vh; }
+    }
+    /* Print styles */
+    @media print {
+      nav, footer, .pagination, .img-lightbox, .nav-toggle { display: none !important; }
+      .container { max-width: 100%; padding: 0; }
+      body { font-size: 12pt; color: #000; background: #fff; }
+      a { color: #000; text-decoration: underline; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <nav>
-      <span class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></span>
+      <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">☰</button>
       <div class="nav-links" id="navLinks">
         <a href="{{ '/' | relative_url }}">Home</a>
@@ -309,79 +327,93 @@
       <p>{{ site.title }} &mdash; by {{ site.author }}. Thoughts on AI, technology, and the assumptions we carry.</p>
     </footer>
   </div>
-
-  <!-- Lightbox container -->
-  <div class="lightbox-overlay" id="lightboxOverlay">
-    <img id="lightboxImage" src="" alt="" />
-  </div>
-
+  <div class="img-lightbox" id="imgLightbox"><img src="" alt="Full-size image"></div>
   <script>
-    // === Mobile hamburger nav ===
-    document.getElementById('navToggle')?.addEventListener('click', function() {
-      document.getElementById('navLinks')?.classList.toggle('open');
-    });
-    document.addEventListener('click', function(e) {
-      const nav = document.querySelector('nav');
-      if (nav && !nav.contains(e.target)) {
-        document.getElementById('navLinks')?.classList.remove('open');
+    (function() {
+      // --- Mobile nav toggle ---
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function() {
+          links.classList.toggle('open');
+        });
       }
-    });
 
-    // === Image lazy loading ===
-    document.querySelectorAll('.post-content img').forEach(function(img) {
-      // Skip images already in viewport or small icons
-      if (img.closest('.home-intro') || img.width < 100) return;
-      
-      // Enable click-to-zoom
-      img.addEventListener('click', function() {
-        const overlay = document.getElementById('lightboxOverlay');
-        const lightImg = document.getElementById('lightboxImage');
-        if (overlay && lightImg) {
-          lightImg.src = this.src;
-          lightImg.alt = this.alt || '';
-          overlay.classList.add('active');
-        }
-      });
+      // --- Wrap images for responsive handling ---
+      var images = document.querySelectorAll('.post-content img');
+      for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+        // Skip images already wrapped
+        if (img.parentElement && img.parentElement.classList.contains('img-container')) continue;
+        // Skip data-uri or very small images (icons)
+        if (img.src.indexOf('data:') === 0) continue;
+        if (img.naturalWidth && img.naturalWidth < 100) continue;
 
-      // Lazy load with IntersectionObserver
-      if ('IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              var dataSrc = img.getAttribute('data-src');
-              if (dataSrc) img.src = dataSrc;
-              img.removeAttribute('data-src');
-              img.classList.add('loaded');
-              observer.unobserve(img);
-            }
+        var container = document.createElement('div');
+        container.className = 'img-container';
+        img.parentNode.insertBefore(container, img);
+        container.appendChild(img);
+
+        // Lazy load
+        img.classList.add('loading');
+        if (img.complete) {
+          img.classList.remove('loading');
+          img.classList.add('loaded');
+        } else {
+          img.addEventListener('load', function() {
+            this.classList.remove('loading');
+            this.classList.add('loaded');
           });
-        }, { rootMargin: '200px' });
-        observer.observe(img);
-      } else {
-        img.classList.add('loaded');
+          img.addEventListener('error', function() {
+            this.classList.remove('loading');
+            this.classList.add('loaded');
+          });
+          // Native lazy loading
+          img.loading = 'lazy';
+        }
+
+        // --- Click-to-zoom lightbox ---
+        (function(im) {
+          container.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var lb = document.getElementById('imgLightbox');
+            if (!lb) return;
+            var lbImg = lb.querySelector('img');
+            if (!lbImg) return;
+            lbImg.src = im.src;
+            lbImg.alt = im.alt || '';
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          });
+        })(img);
       }
-    });
 
-    // === Close lightbox on click ===
-    document.getElementById('lightboxOverlay')?.addEventListener('click', function() {
-      this.classList.remove('active');
-    });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.getElementById('lightboxOverlay')?.classList.remove('active');
+      // --- Close lightbox on click ---
+      var lightbox = document.getElementById('imgLightbox');
+      if (lightbox) {
+        lightbox.addEventListener('click', function() {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
       }
-    });
 
-    // === Responsive: wrap tables in scroll container ===
-    document.querySelectorAll('.post-content table').forEach(function(table) {
-      var wrapper = document.createElement('div');
-      wrapper.className = 'table-wrapper';
-      table.parentNode.insertBefore(wrapper, table);
-      wrapper.appendChild(table);
-    });
-
-    // === Responsive: wrap image+h1 combos in figures if followed by caption ===
-    // (no-op: Jekyll markdown handles p/em nesting)
+      // --- Wrap tables for horizontal scroll ---
+      var tables = document.querySelectorAll('.post-content table');
+      for (var t = 0; t < tables.length; t++) {
+        var table = tables[t];
+        if (table.parentElement && table.parentElement.classList.contains('table-wrap')) continue;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-wrap';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+    })();
   </script>
 </body>
 </html>

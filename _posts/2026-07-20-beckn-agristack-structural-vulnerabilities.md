@@ -13,7 +13,8 @@ These two worlds are converging. OAN sits on top (farmer-facing intent → advis
 
 This piece runs **Beckn's entire structural design** through six reasoning recipes from the semantic-algos framework, with a specific focus on what vulnerabilities the protocol's architecture *enables by design* when deployed in agriculture — covering AgriStack, OAN, MahaVISTAAR, and the broader ecosystem.
 
-![Beckn-OAN-AgriStack stack relationship — how the three layers interlock](./images/agristack-oan-stack.png)
+![AgriStack-OAN-Beckn stack: three layers interlocked](/semantic-thinking/images/agristack-oan-stack.png)
+*Figure 1: AgriStack Farmer Registries and ADeX at the foundation, Beckn's gateway-registry layer in the middle, OAN/MahaVISTAAR apps at the top. UFSI bridges the two worlds.*
 *Figure 1: AgriStack's Farmer Registries/ADeX at the foundation, Beckn's gateway-and-registry layer in the middle, OAN/MahaVISTAAR apps at the top. UFSI bridges the two worlds.*
 
 ---
@@ -103,7 +104,8 @@ Beckn has no concept of:
 
 ### 2A. The Gateway Observation Problem (visualised)
 
-![Gateway Observation Problem — every farmer query visible to the gateway](/semantic-thinking/assets/beckn-gateway-observation.png)
+![Beckn five-layer architecture with gaps highlighted](/semantic-thinking/images/beckn-layers.png)
+*Figure 2: Beckn's five-layer architecture — Application, Network (BAP→Gateway→BPP), Transaction Grammar, Message Signing, Infrastructure Transport. Note the critical gaps: identity, consent, and provenance are absent from the protocol specification.*
 
 *Figure: In Beckn's architecture, the Gateway sees every farmer query (crop problem, location, language) before routing it to the matching BPP. Even with dual signatures ensuring message integrity, the Gateway observes all metadata — who asked what, which providers matched, what was selected. This is not a surveillance *bug* — it is an architectural *feature* that becomes a vulnerability in agriculture.*
 
@@ -345,7 +347,8 @@ The dual-digital-signature model already provides message integrity. Extend it w
 
 If a BPP paid for placement, this must be disclosed in `commercial_placements`.
 
-![Structural vulnerability map showing each recipe analysis mapped to its Beckn component, agricultural context, and risk level](./images/vulnerability-map.png)
+![Seven vulnerability clusters mapped across Beckn components](/semantic-thinking/images/vulnerability-map.png)
+*Figure 3: Seven vulnerability clusters mapped across Beckn components. Each vulnerability is linked to the semantic-algos recipe that uncovered it, the specific agricultural deployment context, the affected Beckn layer, and the risk level.*
 *Figure 3: Seven vulnerability clusters mapped across Beckn components. Each vulnerability is linked to the semantic-algos recipe that uncovered it, the specific agricultural deployment context, and the affected layer.*
 
 ---

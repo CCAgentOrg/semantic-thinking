@@ -44,6 +44,12 @@
       margin: 0 auto;
       padding: 60px 24px 80px;
     }
+    /* === RESPONSIVE CONTAINER === */
+    @media (max-width: 480px) {
+      .container { padding: 32px 16px 64px; }
+    }
+
+    /* === NAVIGATION === */
     nav {
       display: flex;
       gap: 24px;
@@ -64,14 +70,46 @@
       color: var(--fg);
       margin-right: auto;
     }
-    nav .site-title a { color: var(--fg); }
-    .nav-toggle { display: none; }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--fg-muted);
+    }
+    .nav-toggle svg { display: block; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    @media (max-width: 560px) {
+      nav { flex-wrap: wrap; gap: 12px; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 0 4px;
+        border-top: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 15px; padding: 6px 0; width: 100%; }
+    }
+
+    /* === TYPOGRAPHY === */
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.4rem; }
+      h2 { font-size: 1.15rem; margin-top: 24px; }
+      h3 { font-size: 1rem; }
+      body { font-size: 15px; }
+    }
+
+    /* === POST LIST (HOME) === */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -85,11 +123,16 @@
       display: flex;
       gap: 8px;
       align-items: center;
+      flex-wrap: wrap;
     }
     .post-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
     .post-title a { color: var(--fg); }
     .post-title a:hover { color: var(--accent); }
     .post-excerpt { font-size: 14px; color: var(--fg-muted); line-height: 1.6; }
+    @media (max-width: 480px) {
+      .post-title { font-size: 1.05rem; }
+      .post-excerpt { font-size: 13px; }
+    }
     .tag {
       display: inline-block;
       font-size: 11px;
@@ -101,12 +144,24 @@
       background: var(--border);
       color: var(--fg-muted);
     }
+
+    /* === HOME INTRO === */
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
+    @media (max-width: 480px) {
+      .home-intro { margin-bottom: 32px; }
+      .home-intro h1 { font-size: 1.5rem; }
+    }
+
+    /* === POST CONTENT === */
     .post-content { max-width: 680px; }
     .post-content h1 { margin-top: 40px; }
     .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    @media (max-width: 480px) {
+      .post-content h1 { margin-top: 28px; }
+      .post-content h2 { font-size: 1.05rem; }
+    }
     .post-content code {
       font-family: var(--font-mono);
       font-size: 14px;
@@ -115,10 +170,15 @@
       border-radius: 3px;
       border: 1px solid var(--border);
     }
+    pre {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .post-content pre code {
       display: block;
       padding: 16px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border-radius: 6px;
       border: 1px solid var(--border);
       background: var(--bg-card);
@@ -132,78 +192,97 @@
       color: var(--fg-muted);
       font-style: italic;
     }
-    .post-content img { max-width: 100%; border-radius: 6px; margin: 16px 0; }
-    /* Image wrapper for large diagrams - adds subtle border & max-height constraint */
-    .post-content .image-wrapper {
-      margin: 20px 0;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-    }
-    .post-content .image-wrapper img {
-      display: block;
+
+    /* === IMAGES === */
+    .post-content img {
       max-width: 100%;
       height: auto;
-      margin: 0;
-      border-radius: 0;
+      border-radius: 6px;
+      margin: 16px 0;
+      display: block;
+      border: 1px solid var(--border);
+      transition: opacity 0.3s ease, box-shadow 0.2s;
       cursor: zoom-in;
-      transition: opacity 0.2s;
     }
-    .post-content .image-wrapper img:hover { opacity: 0.9; }
-    .post-content .image-wrapper .image-caption {
-      padding: 8px 14px;
-      font-size: 13px;
-      color: var(--fg-muted);
-      line-height: 1.5;
-      border-top: 1px solid var(--border);
+    .post-content img:hover {
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
     }
-    /* Lightbox overlay for zoom */
-    .lightbox-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: zoom-out;
+    .post-content img.lazyloading {
       opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s, visibility 0.2s;
-      padding: 20px;
     }
-    .lightbox-overlay.active {
+    .post-content img.lazyloaded {
       opacity: 1;
-      visibility: visible;
+      transition: opacity 0.3s ease;
     }
+    /* Lightbox overlay */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.open { display: flex; }
     .lightbox-overlay img {
       max-width: 100%;
-      max-height: 90vh;
+      max-height: 95vh;
       object-fit: contain;
       border-radius: 4px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+      cursor: zoom-out;
     }
+    .lightbox-close {
+      position: fixed;
+      top: 16px;
+      right: 24px;
+      color: #fff;
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 10000;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.15s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    @media (max-width: 480px) {
+      .lightbox-overlay { padding: 12px; }
+    }
+
+    /* === TABLES (horizontal scroll on mobile) === */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 16px 0;
+    }
+    .table-wrapper::-webkit-scrollbar { height: 6px; }
+    .table-wrapper::-webkit-scrollbar-track { background: var(--bg); }
+    .table-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     .post-content table {
       width: 100%;
       border-collapse: collapse;
-      margin: 16px 0;
       font-size: 14px;
+      min-width: 420px;
     }
     .post-content th, .post-content td {
       padding: 8px 12px;
       border: 1px solid var(--border);
       text-align: left;
+      white-space: nowrap;
     }
     .post-content th { background: var(--bg-card); font-weight: 600; }
-    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 16px -12px;
-      padding: 0 12px;
+    @media (max-width: 480px) {
+      .post-content table { font-size: 12px; }
+      .post-content th, .post-content td { padding: 6px 8px; }
     }
-    .table-wrapper table { margin: 0; min-width: 500px; }
+    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    /* === PAGINATION === */
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -216,6 +295,8 @@
       font-weight: 500;
     }
     .about-content { margin-top: 32px; }
+
+    /* === FOOTER === */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -223,43 +304,31 @@
       font-size: 13px;
       color: var(--fg-muted);
     }
-    /* Responsive adjustments */
-    @media (max-width: 540px) {
-      .container { padding: 32px 16px 60px; }
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; }
-      .home-intro h1 { font-size: 1.6rem; }
-      .home-intro p { font-size: 14px; }
-      .post-title { font-size: 1.05rem; }
-      .post-content { font-size: 15px; }
-      .post-content pre code { font-size: 12px; padding: 12px; }
-      .post-content code { font-size: 13px; }
-      footer { margin-top: 40px; }
-      .table-wrapper { margin: 12px -8px; padding: 0 8px; }
-      .table-wrapper table { min-width: 400px; }
-      nav { gap: 0; flex-wrap: wrap; }
-      nav .site-title { margin-right: 0; width: 100%; margin-bottom: 8px; }
-      nav a { font-size: 13px; margin-right: 16px; }
-      /* Make images full-bleed on mobile */
-      .post-content .image-wrapper { border-radius: 4px; }
-      .lightbox-overlay { padding: 12px; }
-    }
-    @media (max-width: 380px) {
-      h1 { font-size: 1.3rem; }
-      .container { padding: 24px 12px 48px; }
-      nav a { font-size: 12px; margin-right: 12px; }
-      .post-meta { font-size: 12px; flex-wrap: wrap; }
+
+    /* === PRINT === */
+    @media print {
+      .nav-toggle, .lightbox-overlay, .lightbox-close { display: none !important; }
+      .container { padding: 0 !important; max-width: 100% !important; }
+      img { break-inside: avoid; max-width: 100% !important; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <nav>
-      <span class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></span>
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/about/' | relative_url }}">About</a>
-      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-      <a href="https://github.com/CCAgentOrg/semantic-thinking" target="_blank" rel="noopener">Source</a>
+      <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="5" x2="17" y2="5"/>
+          <line x1="3" y1="10" x2="17" y2="10"/>
+          <line x1="3" y1="15" x2="17" y2="15"/>
+        </svg>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </div>
     </nav>
     {{ content }}
     <footer>
@@ -267,69 +336,62 @@
     </footer>
   </div>
 
-  <!-- Lightbox overlay for image zoom -->
-  <div class="lightbox-overlay" id="lightbox">
-    <img src="" alt="Enlarged diagram">
+  <!-- Lightbox for image zoom -->
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <img id="lightboxImg" src="" alt="" />
   </div>
 
   <script>
     (function() {
-      // --- Lazy loading for images ---
-      if ('loading' in HTMLImageElement.prototype) {
-        const imgs = document.querySelectorAll('.post-content img:not([loading])');
-        for (const img of imgs) img.setAttribute('loading', 'lazy');
-      }
-
-      // --- Wrap block images in image-wrapper containers ---
-      const content = document.querySelector('.post-content');
-      if (content) {
-        const imgs = content.querySelectorAll('p > img:only-child');
-        for (const img of imgs) {
-          const p = img.parentNode;
-          const alt = img.getAttribute('alt') || '';
-          const wrapper = document.createElement('div');
-          wrapper.className = 'image-wrapper';
-          p.parentNode.replaceChild(wrapper, p);
-          wrapper.appendChild(img);
-          if (alt) {
-            const caption = document.createElement('div');
-            caption.className = 'image-caption';
-            caption.textContent = alt;
-            wrapper.appendChild(caption);
-          }
-        }
+      // --- Mobile nav toggle ---
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function() {
+          links.classList.toggle('open');
+        });
       }
 
       // --- Lightbox: click any post-content image to zoom ---
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = lightbox.querySelector('img');
-      document.addEventListener('click', function(e) {
-        const img = e.target.closest('.post-content img, .post-content .image-wrapper img');
-        if (img && !e.target.closest('.lightbox-overlay')) {
-          lightboxImg.src = img.src;
-          lightbox.classList.add('active');
-          document.body.style.overflow = 'hidden';
-          e.preventDefault();
-        }
-      });
-      lightbox.addEventListener('click', function() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-          lightbox.classList.remove('active');
+      var overlay = document.getElementById('lightboxOverlay');
+      var lightboxImg = document.getElementById('lightboxImg');
+      var closeBtn = document.getElementById('lightboxClose');
+
+      if (overlay && lightboxImg && closeBtn) {
+        document.querySelectorAll('.post-content img').forEach(function(img) {
+          img.addEventListener('click', function(e) {
+            if (img.closest('.lightbox-overlay')) return;
+            lightboxImg.src = img.getAttribute('data-src') || img.src;
+            lightboxImg.alt = img.alt;
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+
+        function closeLightbox() {
+          overlay.classList.remove('open');
           document.body.style.overflow = '';
         }
-      });
 
-      // --- Wrap tables in scrollable containers ---
-      const tables = content ? content.querySelectorAll('table') : [];
-      for (const table of tables) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'table-wrapper';
-        table.parentNode.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
+        closeBtn.addEventListener('click', closeLightbox);
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
+
+      // --- Lazy-load images with native lazy if available ---
+      var imgs = document.querySelectorAll('.post-content img[loading="lazy"]');
+      if ('loading' in HTMLImageElement.prototype) {
+        // Native lazy loading already handled by the attribute
+      } else {
+        // Fallback for older browsers — load all immediately
+        imgs.forEach(function(img) {
+          if (img.dataset.src) img.src = img.dataset.src;
+        });
       }
     })();
   </script>

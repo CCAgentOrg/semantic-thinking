@@ -13,6 +13,9 @@ These two worlds are converging. OAN sits on top (farmer-facing intent → advis
 
 This piece runs **Beckn's entire structural design** through six reasoning recipes from the semantic-algos framework, with a specific focus on what vulnerabilities the protocol's architecture *enables by design* when deployed in agriculture — covering AgriStack, OAN, MahaVISTAAR, and the broader ecosystem.
 
+![Beckn-OAN-AgriStack stack relationship — how the three layers interlock](./images/agristack-oan-stack.png)
+*Figure 1: AgriStack's Farmer Registries/ADeX at the foundation, Beckn's gateway-and-registry layer in the middle, OAN/MahaVISTAAR apps at the top. UFSI bridges the two worlds.*
+
 ---
 
 ## 1. Assumption Audit — What Must Be True for Beckn to Be Safe in Agriculture?
@@ -98,9 +101,11 @@ Beckn has no concept of:
 
 4. **Audit trail (immutable)** — While Beckn specifies dual-digital-signing for message integrity, the audit trail exists only as log files at each network participant. There is no protocol-level commitment chain or distributed ledger. An OAN gateway operator can quietly drop messages, and the only evidence is the absence of acknowledgments.
 
-5. **Grievance redressal** — The protocol has `on_support` and `support` calls in its transaction lifecycle, but these are designed for order-level customer support (e.g., "my delivery is late"), not for data protection complaints, consent withdrawal, or contesting a denial of service.
+### 2A. The Gateway Observation Problem (visualised)
 
-6. **Data minimization** — The search/select/confirm cycle sends the farmer's full query context to the gateway, which broadcasts it to matching BPPs. There is no provision for selective disclosure — a farmer seeking pest advice for cotton should not need to reveal their exact village or mobile number until absolutely necessary.
+![Gateway Observation Problem — every farmer query visible to the gateway](/semantic-thinking/assets/beckn-gateway-observation.png)
+
+*Figure: In Beckn's architecture, the Gateway sees every farmer query (crop problem, location, language) before routing it to the matching BPP. Even with dual signatures ensuring message integrity, the Gateway observes all metadata — who asked what, which providers matched, what was selected. This is not a surveillance *bug* — it is an architectural *feature* that becomes a vulnerability in agriculture.*
 
 ### Layer 3: First-principles implication for agriculture
 
@@ -339,6 +344,9 @@ The dual-digital-signature model already provides message integrity. Extend it w
 ```
 
 If a BPP paid for placement, this must be disclosed in `commercial_placements`.
+
+![Structural vulnerability map showing each recipe analysis mapped to its Beckn component, agricultural context, and risk level](./images/vulnerability-map.png)
+*Figure 3: Seven vulnerability clusters mapped across Beckn components. Each vulnerability is linked to the semantic-algos recipe that uncovered it, the specific agricultural deployment context, and the affected layer.*
 
 ---
 

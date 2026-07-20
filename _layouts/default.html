@@ -18,6 +18,7 @@
       --bg-card: #fff;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       --font-mono: "SF Mono", "Cascadia Code", Consolas, monospace;
+      --container: 680px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -40,10 +41,12 @@
       -webkit-font-smoothing: antialiased;
     }
     .container {
-      max-width: 680px;
+      max-width: var(--container);
       margin: 0 auto;
       padding: 60px 24px 80px;
     }
+
+    /* ---- Navigation ---- */
     nav {
       display: flex;
       gap: 24px;
@@ -69,22 +72,22 @@
       display: none;
       background: none;
       border: none;
-      color: var(--fg-muted);
-      font-size: 24px;
       cursor: pointer;
-      padding: 4px 8px;
-      line-height: 1;
-      border-radius: 4px;
-      transition: background 0.15s;
+      padding: 6px;
+      color: var(--fg);
     }
-    .nav-toggle:hover { background: var(--border); }
-    .nav-links { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .nav-toggle svg { display: block; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+
+    /* ---- Typography ---- */
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+    /* ---- Post List ---- */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -98,9 +101,10 @@
       display: flex;
       gap: 8px;
       align-items: center;
+      flex-wrap: wrap;
     }
     .post-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
-    .post-title a { color: var(--fg); }
+    .post-title a { color: var(--fg); transition: color 0.15s; }
     .post-title a:hover { color: var(--accent); }
     .post-excerpt { font-size: 14px; color: var(--fg-muted); line-height: 1.6; }
     .tag {
@@ -114,10 +118,14 @@
       background: var(--border);
       color: var(--fg-muted);
     }
+
+    /* ---- Home ---- */
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
-    .post-content { max-width: 680px; }
+
+    /* ---- Post Content ---- */
+    .post-content { max-width: var(--container); }
     .post-content h1 { margin-top: 40px; }
     .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
     .post-content code {
@@ -129,21 +137,21 @@
       border: 1px solid var(--border);
     }
     .post-content pre {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 6px;
       background: var(--bg-card);
       border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0;
+      -webkit-overflow-scrolling: touch;
     }
     .post-content pre code {
       display: block;
-      padding: 16px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      font-size: 13px;
-      line-height: 1.5;
+      padding: 0;
       border: none;
       background: none;
+      font-size: 13px;
+      line-height: 1.5;
     }
     .post-content blockquote {
       border-left: 3px solid var(--accent);
@@ -152,79 +160,52 @@
       color: var(--fg-muted);
       font-style: italic;
     }
-    /* Image container for large diagrams */
-    .post-content .img-container {
-      margin: 16px 0;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: zoom-in;
-      position: relative;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      transition: border-color 0.2s;
-    }
-    .post-content .img-container:hover {
-      border-color: var(--accent);
-    }
-    .post-content .img-container img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 480px;
-      object-fit: contain;
-      border-radius: 0;
-      margin: 0;
-      transition: opacity 0.3s;
-    }
-    .post-content .img-container img.loading { opacity: 0; }
-    .post-content .img-container img.loaded { opacity: 1; }
-    .post-content .img-container::after {
-      content: "↗";
-      position: absolute;
-      bottom: 8px;
-      right: 10px;
-      font-size: 13px;
-      color: var(--fg-muted);
-      opacity: 0.6;
-      pointer-events: none;
-    }
-    /* Lightbox overlay for zoomed images */
-    .img-lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 9999;
-      background: rgba(0,0,0,0.85);
-      cursor: zoom-out;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .img-lightbox.active { display: flex; }
-    .img-lightbox img {
-      max-width: 95vw;
-      max-height: 95vh;
-      object-fit: contain;
-      border-radius: 4px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-    }
-    /* Inline images (non-container) */
+
+    /* ---- Images ---- */
     .post-content img {
       max-width: 100%;
       height: auto;
       border-radius: 6px;
-      margin: 16px 0;
+      margin: 20px 0;
+      display: block;
+      cursor: zoom-in;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
     }
-    @media (prefers-color-scheme: dark) {
-      .post-content img, .post-content .img-container { border-color: var(--border); }
+    .post-content img:hover { opacity: 0.95; }
+    .post-content .image-container {
+      position: relative;
+      margin: 20px 0;
     }
-    /* Table horizontal scroll */
+    .post-content .image-container img { margin: 0; }
+
+    /* Image lightbox overlay */
+    .img-lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      cursor: zoom-out;
+      padding: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+    .img-lightbox.active { display: flex; }
+    .img-lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+
+    /* ---- Tables ---- */
     .post-content .table-wrap {
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
       margin: 16px 0;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      -webkit-overflow-scrolling: touch;
     }
     .post-content table {
       width: 100%;
@@ -238,8 +219,13 @@
       text-align: left;
       white-space: nowrap;
     }
-    .post-content th { background: var(--bg-card); font-weight: 600; }
+    .post-content th {
+      background: var(--bg-card);
+      font-weight: 600;
+    }
     .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    /* ---- Pagination ---- */
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -247,11 +233,11 @@
       padding-top: 24px;
       border-top: 1px solid var(--border);
     }
-    .pagination a {
-      font-size: 14px;
-      font-weight: 500;
-    }
+    .pagination a { font-size: 14px; font-weight: 500; }
+
     .about-content { margin-top: 32px; }
+
+    /* ---- Footer ---- */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -259,55 +245,53 @@
       font-size: 13px;
       color: var(--fg-muted);
     }
-    /* ===== Responsive Breakpoints ===== */
-    @media (max-width: 640px) {
-      .container { padding: 32px 16px 60px; }
+
+    /* ---- Responsive: ≤768px ---- */
+    @media (max-width: 768px) {
+      .container { padding: 40px 20px 60px; }
       body { font-size: 15px; }
       h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; margin-top: 24px; }
+      h2 { font-size: 1.2rem; }
       .home-intro h1 { font-size: 1.6rem; }
+      .post-content pre { font-size: 12px; padding: 12px; }
+      .post-content pre code { font-size: 12px; }
+      .post-content th, .post-content td { white-space: normal; }
+      .post-content table { min-width: 0; }
+    }
+
+    /* ---- Responsive: ≤480px ---- */
+    @media (max-width: 480px) {
+      .container { padding: 24px 16px 48px; }
+      body { font-size: 14px; line-height: 1.6; }
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.1rem; }
+      .home-intro h1 { font-size: 1.4rem; }
       .home-intro p { font-size: 14px; }
-      .post-title { font-size: 1.1rem; }
-      .post-content { font-size: 15px; }
-      .post-content h1 { font-size: 1.5rem; margin-top: 28px; }
-      .post-content h2 { font-size: 1.2rem; }
-      .post-content code { font-size: 13px; }
-      .post-content pre code { font-size: 12px; padding: 12px; }
-      /* Stack nav on mobile */
-      nav { gap: 0; }
+      .post-title { font-size: 1.05rem; }
+
+      /* Mobile nav toggle */
       .nav-toggle { display: block; }
       .nav-links {
         display: none;
         width: 100%;
         flex-direction: column;
-        gap: 8px;
-        padding: 12px 0 4px;
+        gap: 4px;
+        padding: 12px 0 8px;
       }
       .nav-links.open { display: flex; }
-      .nav-links a { font-size: 15px; padding: 6px 0; }
-      .pagination { flex-direction: column; gap: 12px; }
-      .post-content img { border-radius: 4px; margin: 12px 0; }
-      .post-content .img-container img { max-height: 320px; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 24px 12px 48px; }
-      body { font-size: 14px; line-height: 1.65; }
-      h1 { font-size: 1.35rem; }
-      h2 { font-size: 1.1rem; }
-      .home-intro h1 { font-size: 1.4rem; }
-      .post-meta { font-size: 12px; flex-wrap: wrap; }
-      .post-excerpt { font-size: 13px; }
-      .post-content { font-size: 14px; }
-      .post-content .img-container img { max-height: 240px; }
-      .img-lightbox { padding: 12px; }
-      .img-lightbox img { max-width: 98vw; max-height: 98vh; }
-    }
-    /* Print styles */
-    @media print {
-      nav, footer, .pagination, .img-lightbox, .nav-toggle { display: none !important; }
-      .container { max-width: 100%; padding: 0; }
-      body { font-size: 12pt; color: #000; background: #fff; }
-      a { color: #000; text-decoration: underline; }
+      .nav-links a {
+        display: block;
+        padding: 8px 0;
+        font-size: 15px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links a:last-child { border-bottom: none; }
+
+      .post-list li { padding: 16px 0; }
+      .post-content { font-size: 15px; }
+      .post-content pre { font-size: 11px; padding: 10px; }
+      .post-content pre code { font-size: 11px; }
+      .post-content th, .post-content td { font-size: 12px; padding: 6px 8px; }
     }
   </style>
 </head>
@@ -315,7 +299,13 @@
   <div class="container">
     <nav>
       <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">☰</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line class="top" x1="4" y1="7" x2="20" y2="7"/>
+          <line class="mid" x1="4" y1="12" x2="20" y2="12"/>
+          <line class="bot" x1="4" y1="17" x2="20" y2="17"/>
+        </svg>
+      </button>
       <div class="nav-links" id="navLinks">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/about/' | relative_url }}">About</a>
@@ -327,10 +317,15 @@
       <p>{{ site.title }} &mdash; by {{ site.author }}. Thoughts on AI, technology, and the assumptions we carry.</p>
     </footer>
   </div>
-  <div class="img-lightbox" id="imgLightbox"><img src="" alt="Full-size image"></div>
+
+  <!-- Image lightbox overlay -->
+  <div class="img-lightbox" id="imgLightbox">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
   <script>
     (function() {
-      // --- Mobile nav toggle ---
+      /* === Mobile nav toggle === */
       var toggle = document.getElementById('navToggle');
       var links = document.getElementById('navLinks');
       if (toggle && links) {
@@ -339,62 +334,24 @@
         });
       }
 
-      // --- Wrap images for responsive handling ---
-      var images = document.querySelectorAll('.post-content img');
-      for (var i = 0; i < images.length; i++) {
-        var img = images[i];
-        // Skip images already wrapped
-        if (img.parentElement && img.parentElement.classList.contains('img-container')) continue;
-        // Skip data-uri or very small images (icons)
-        if (img.src.indexOf('data:') === 0) continue;
-        if (img.naturalWidth && img.naturalWidth < 100) continue;
-
-        var container = document.createElement('div');
-        container.className = 'img-container';
-        img.parentNode.insertBefore(container, img);
-        container.appendChild(img);
-
-        // Lazy load
-        img.classList.add('loading');
-        if (img.complete) {
-          img.classList.remove('loading');
-          img.classList.add('loaded');
-        } else {
-          img.addEventListener('load', function() {
-            this.classList.remove('loading');
-            this.classList.add('loaded');
-          });
-          img.addEventListener('error', function() {
-            this.classList.remove('loading');
-            this.classList.add('loaded');
-          });
-          // Native lazy loading
-          img.loading = 'lazy';
-        }
-
-        // --- Click-to-zoom lightbox ---
-        (function(im) {
-          container.addEventListener('click', function(e) {
+      /* === Image lightbox === */
+      var lightbox = document.getElementById('imgLightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('.post-content img').forEach(function(img) {
+          img.addEventListener('click', function(e) {
             e.stopPropagation();
-            var lb = document.getElementById('imgLightbox');
-            if (!lb) return;
-            var lbImg = lb.querySelector('img');
-            if (!lbImg) return;
-            lbImg.src = im.src;
-            lbImg.alt = im.alt || '';
-            lb.classList.add('active');
+            lightboxImg.src = this.src;
+            lightboxImg.alt = this.alt || '';
+            lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
           });
-        })(img);
-      }
-
-      // --- Close lightbox on click ---
-      var lightbox = document.getElementById('imgLightbox');
-      if (lightbox) {
+        });
         lightbox.addEventListener('click', function() {
-          this.classList.remove('active');
+          lightbox.classList.remove('active');
           document.body.style.overflow = '';
         });
+        /* Escape key closes lightbox */
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape' && lightbox.classList.contains('active')) {
             lightbox.classList.remove('active');
@@ -403,15 +360,19 @@
         });
       }
 
-      // --- Wrap tables for horizontal scroll ---
-      var tables = document.querySelectorAll('.post-content table');
-      for (var t = 0; t < tables.length; t++) {
-        var table = tables[t];
-        if (table.parentElement && table.parentElement.classList.contains('table-wrap')) continue;
-        var wrapper = document.createElement('div');
-        wrapper.className = 'table-wrap';
-        table.parentNode.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
+      /* === Responsive table wrappers === */
+      document.querySelectorAll('.post-content table').forEach(function(table) {
+        var wrap = document.createElement('div');
+        wrap.className = 'table-wrap';
+        table.parentNode.insertBefore(wrap, table);
+        wrap.appendChild(table);
+      });
+
+      /* === Lazy-load images with native loading === */
+      if ('loading' in HTMLImageElement.prototype) {
+        document.querySelectorAll('.post-content img:not([loading])').forEach(function(img) {
+          img.setAttribute('loading', 'lazy');
+        });
       }
     })();
   </script>

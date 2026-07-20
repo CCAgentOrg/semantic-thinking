@@ -14,7 +14,6 @@ These two worlds are converging. OAN sits on top (farmer-facing intent → advis
 This piece runs **Beckn's entire structural design** through six reasoning recipes from the semantic-algos framework, with a specific focus on what vulnerabilities the protocol's architecture *enables by design* when deployed in agriculture — covering AgriStack, OAN, MahaVISTAAR, and the broader ecosystem.
 
 ![AgriStack-OAN-Beckn stack: three layers interlocked](/semantic-thinking/images/agristack-oan-stack.png)
-*Figure 1: AgriStack Farmer Registries and ADeX at the foundation, Beckn's gateway-registry layer in the middle, OAN/MahaVISTAAR apps at the top. UFSI bridges the two worlds.*
 *Figure 1: AgriStack's Farmer Registries/ADeX at the foundation, Beckn's gateway-and-registry layer in the middle, OAN/MahaVISTAAR apps at the top. UFSI bridges the two worlds.*
 
 ---
@@ -107,7 +106,8 @@ Beckn has no concept of:
 ![Beckn five-layer architecture with gaps highlighted](/semantic-thinking/images/beckn-layers.png)
 *Figure 2: Beckn's five-layer architecture — Application, Network (BAP→Gateway→BPP), Transaction Grammar, Message Signing, Infrastructure Transport. Note the critical gaps: identity, consent, and provenance are absent from the protocol specification.*
 
-*Figure: In Beckn's architecture, the Gateway sees every farmer query (crop problem, location, language) before routing it to the matching BPP. Even with dual signatures ensuring message integrity, the Gateway observes all metadata — who asked what, which providers matched, what was selected. This is not a surveillance *bug* — it is an architectural *feature* that becomes a vulnerability in agriculture.*
+![Gateway sees all farmer query metadata before routing](/semantic-thinking/images/beckn-gateway-surveillance.png)
+*Figure 2A: In Beckn's architecture, the Gateway observes every farmer query — crop choice, location, language, device — before routing it to matching BPPs. The dual-signature model ensures message integrity but does not prevent metadata exposure at the routing layer. This is an architectural feature that becomes a vulnerability in agriculture.*
 
 ### Layer 3: First-principles implication for agriculture
 
@@ -218,6 +218,9 @@ Credit bureaus (CIBIL, Experian) consolidate financial data from multiple source
 | **Farmer** | BAP user (via MahaVISTAAR app or CSC intermediary) | Access to advisory and services; loss of data control, no say in protocol governance |
 
 ### The Power Architecture
+
+![Three power concentration points in the Beckn agricultural stack](/semantic-thinking/images/beckn-power-architecture.png)
+*Figure: Three power concentration points in Beckn's agricultural architecture — Gateway/Registry (COSS/EkStep observes all queries), Identity Linkage (AgriStack/UFSI connects Aadhaar profiles to behavior), and Protocol Governance (FIDE/COSS controls evolution, not democratic processes).*
 
 The Beckn agricultural stack concentrates power at **three points**:
 
@@ -349,7 +352,6 @@ If a BPP paid for placement, this must be disclosed in `commercial_placements`.
 
 ![Seven vulnerability clusters mapped across Beckn components](/semantic-thinking/images/vulnerability-map.png)
 *Figure 3: Seven vulnerability clusters mapped across Beckn components. Each vulnerability is linked to the semantic-algos recipe that uncovered it, the specific agricultural deployment context, the affected Beckn layer, and the risk level.*
-*Figure 3: Seven vulnerability clusters mapped across Beckn components. Each vulnerability is linked to the semantic-algos recipe that uncovered it, the specific agricultural deployment context, and the affected layer.*
 
 ---
 

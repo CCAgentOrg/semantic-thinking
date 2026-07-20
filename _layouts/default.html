@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="theme-color" content="#2563eb">
-  <meta name="color-scheme" content="light dark">
   {% feed_meta %}
   {% seo %}
   <style>
@@ -33,7 +31,6 @@
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -41,46 +38,106 @@
       line-height: 1.7;
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
     .container {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 60px 24px 80px;
+      padding: 48px 24px 80px;
     }
-    /* Navigation */
+
+    /* ---- Navigation ---- */
     nav {
       display: flex;
-      gap: 24px;
+      flex-wrap: wrap;
+      gap: 8px 24px;
       margin-bottom: 48px;
       align-items: center;
-      flex-wrap: wrap;
     }
-    nav a {
-      color: var(--fg-muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.15s;
-      padding: 4px 0;
-    }
-    nav a:hover { color: var(--accent); }
     nav .site-title {
       font-weight: 700;
       font-size: 16px;
       color: var(--fg);
       margin-right: auto;
+      line-height: 1.3;
     }
-    .nav-toggle { display: none; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
+    nav .site-title a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    nav .site-title a:hover { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--fg-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--accent); }
 
-    /* Typography */
-    h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.01em; }
-    h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; letter-spacing: -0.01em; }
+    /* Hamburger toggle (hidden on desktop) */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: var(--fg);
+      font-size: 18px;
+      line-height: 1;
+    }
+    .nav-toggle:hover { background: var(--bg-card); }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px 16px 60px;
+      }
+      nav { margin-bottom: 32px; }
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px 0 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        display: block;
+        padding: 8px 0;
+        font-size: 15px;
+        border-bottom: 1px solid var(--border);
+        width: 100%;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+    }
+
+    /* ---- Typography ---- */
+    h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+    h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
     p { margin-bottom: 16px; }
-    a { color: var(--accent); text-decoration: none; word-break: break-word; }
+    a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      body { font-size: 15px; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; margin-top: 24px; }
+      h3 { font-size: 1rem; }
+    }
+
+    /* ---- Post List ---- */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -114,7 +171,14 @@
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
-    .post-content { max-width: 680px; }
+
+    @media (max-width: 480px) {
+      .home-intro h1 { font-size: 1.6rem; }
+      .post-title { font-size: 1.05rem; }
+    }
+
+    /* ---- Post Content ---- */
+    .post-content { max-width: 720px; }
     .post-content h1 { margin-top: 40px; }
     .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
     .post-content code {
@@ -124,7 +188,6 @@
       padding: 2px 6px;
       border-radius: 3px;
       border: 1px solid var(--border);
-      word-break: break-word;
     }
     .post-content pre {
       overflow-x: auto;
@@ -141,7 +204,8 @@
       line-height: 1.5;
       border: none;
       background: none;
-      word-break: normal;
+      width: max-content;
+      min-width: 100%;
     }
     .post-content blockquote {
       border-left: 3px solid var(--accent);
@@ -150,15 +214,23 @@
       color: var(--fg-muted);
       font-style: italic;
     }
-    /* Images */
+    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .post-content ul, .post-content ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .post-content li { margin-bottom: 4px; }
+
+    /* ---- Images ---- */
     .post-content img {
       max-width: 100%;
       height: auto;
       border-radius: 6px;
-      margin: 16px 0;
+      margin: 20px 0;
+      display: block;
       cursor: zoom-in;
       transition: opacity 0.2s, box-shadow 0.2s;
-      display: block;
+      border: 1px solid var(--border);
     }
     .post-content img:hover {
       opacity: 0.95;
@@ -166,44 +238,36 @@
     }
     @media (prefers-color-scheme: dark) {
       .post-content img {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        padding: 4px;
+        border-color: var(--border);
+        filter: brightness(0.95);
+      }
+      .post-content img:hover {
+        filter: brightness(1);
       }
     }
-    .img-wrapper {
-      position: relative;
-      margin: 16px 0;
-    }
-    .img-wrapper img { margin: 0; }
-    .img-caption {
-      font-size: 13px;
-      color: var(--fg-muted);
-      text-align: center;
-      margin-top: 6px;
-      font-style: italic;
-    }
-    /* Image lightbox */
-    .lightbox-overlay {
+
+    /* Image lightbox overlay */
+    .img-lightbox {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.85);
       z-index: 9999;
       cursor: zoom-out;
+      align-items: center;
+      justify-content: center;
       padding: 24px;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
     }
-    .lightbox-overlay.active { display: flex; align-items: center; justify-content: center; }
-    .lightbox-overlay img {
-      max-width: 95vw;
-      max-height: 95vh;
-      object-fit: contain;
+    .img-lightbox.open { display: flex; }
+    .img-lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
       border-radius: 4px;
       box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+      object-fit: contain;
     }
-    /* Tables */
+
+    /* ---- Tables ---- */
     .table-wrapper {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -211,19 +275,23 @@
       border-radius: 6px;
       border: 1px solid var(--border);
     }
-    .post-content table {
+    table {
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      min-width: 480px;
     }
-    .post-content th, .post-content td {
+    th, td {
       padding: 8px 12px;
       border: 1px solid var(--border);
       text-align: left;
+      white-space: nowrap;
     }
-    .post-content th { background: var(--bg-card); font-weight: 600; }
-    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    th { background: var(--bg-card); font-weight: 600; }
+    @media (max-width: 600px) {
+      th, td { padding: 6px 8px; font-size: 13px; }
+    }
+
+    /* ---- Pagination ---- */
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -235,7 +303,11 @@
       font-size: 14px;
       font-weight: 500;
     }
+
+    /* ---- About ---- */
     .about-content { margin-top: 32px; }
+
+    /* ---- Footer ---- */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -243,58 +315,44 @@
       font-size: 13px;
       color: var(--fg-muted);
     }
-    /* Focus styles for accessibility */
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-      border-radius: 2px;
+
+    /* ---- Back to top ---- */
+    .back-to-top {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--fg-muted);
+      font-size: 18px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+      z-index: 100;
     }
-    /* Mobile breakpoint */
-    @media (max-width: 640px) {
-      .container { padding: 32px 16px 60px; }
-      nav { margin-bottom: 32px; }
-      .nav-toggle {
-        display: block;
-        background: none;
-        border: none;
-        color: var(--fg-muted);
-        font-size: 24px;
-        cursor: pointer;
-        padding: 4px;
-        line-height: 1;
-        margin-left: auto;
-      }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 8px;
-        padding: 12px 0 4px;
-        border-top: 1px solid var(--border);
-        margin-top: 8px;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { font-size: 15px; padding: 6px 0; display: block; }
-      h1 { font-size: 1.4rem; }
-      h2 { font-size: 1.15rem; margin-top: 24px; }
-      h3 { font-size: 1rem; }
-      .home-intro h1 { font-size: 1.6rem; }
-      .post-title { font-size: 1.05rem; }
-      .post-content { font-size: 15px; line-height: 1.65; }
-      .post-content code { font-size: 13px; }
-      .post-content pre code { font-size: 12px; padding: 12px; }
-      .post-content img { border-radius: 4px; }
-      .lightbox-overlay { padding: 12px; }
-      .lightbox-overlay img { max-width: 100vw; max-height: 90vh; border-radius: 2px; }
-      footer { margin-top: 40px; padding-top: 16px; font-size: 12px; }
+    .back-to-top.visible { display: flex; }
+    .back-to-top:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ---- Print ---- */
+    @media print {
+      .back-to-top, .nav-toggle { display: none !important; }
+      .post-content img { cursor: default; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <nav>
-      <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <span class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></span>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
       <div class="nav-links" id="navLinks">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/about/' | relative_url }}">About</a>
@@ -306,55 +364,82 @@
       <p>{{ site.title }} &mdash; by {{ site.author }}. Thoughts on AI, technology, and the assumptions we carry.</p>
     </footer>
   </div>
-  <!-- Lightbox overlay -->
-  <div class="lightbox-overlay" id="lightboxOverlay" onclick="this.classList.remove('active')">
-    <img id="lightboxImg" src="" alt="Zoomed diagram">
+
+  <!-- Image lightbox -->
+  <div class="img-lightbox" id="imgLightbox">
+    <img src="" alt="" id="lightboxImg" />
   </div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
   <script>
-    // Mobile nav toggle
-    document.getElementById('navToggle').addEventListener('click', function() {
-      const links = document.getElementById('navLinks');
-      const expanded = this.getAttribute('aria-expanded') === 'true' ? false : true;
-      links.classList.toggle('open');
-      this.setAttribute('aria-expanded', expanded);
-    });
+    (function() {
+      'use strict';
 
-    // Image lightbox — click any post image to view full size
-    document.querySelectorAll('.post-content img').forEach(function(img) {
-      img.addEventListener('click', function(e) {
-        e.stopPropagation();
-        document.getElementById('lightboxImg').src = this.src;
-        document.getElementById('lightboxImg').alt = this.alt || 'Enlarged diagram';
-        document.getElementById('lightboxOverlay').classList.add('active');
-      });
-    });
-
-    // Close lightbox on Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.getElementById('lightboxOverlay').classList.remove('active');
-      }
-    });
-
-    // Lazy load images with IntersectionObserver
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.removeAttribute('data-src');
-            }
-            observer.unobserve(img);
-          }
+      // --- Mobile nav toggle ---
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', function() {
+          links.classList.toggle('open');
         });
-      }, { rootMargin: '200px' });
+        // Close nav on link click (mobile)
+        [].slice.call(links.querySelectorAll('a')).forEach(function(link) {
+          link.addEventListener('click', function() {
+            links.classList.remove('open');
+          });
+        });
+      }
 
-      document.querySelectorAll('.post-content img[data-src]').forEach(function(img) {
-        observer.observe(img);
+      // --- Image lightbox ---
+      var lightbox = document.getElementById('imgLightbox');
+      var lightboxImg = document.getElementById('lightboxImg');
+      if (lightbox && lightboxImg) {
+        [].slice.call(document.querySelectorAll('.post-content img')).forEach(function(img) {
+          img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('open');
+          });
+        });
+        lightbox.addEventListener('click', function() {
+          lightbox.classList.remove('open');
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') lightbox.classList.remove('open');
+        });
+      }
+
+      // --- Lazy load images ---
+      if ('IntersectionObserver' in window) {
+        [].slice.call(document.querySelectorAll('.post-content img[loading="lazy"]')).forEach(function(img) {
+          // Already handled by native lazy; this is a fallback wrapper
+        });
+      }
+
+      // --- Back to top ---
+      var backBtn = document.getElementById('backToTop');
+      if (backBtn) {
+        window.addEventListener('scroll', function() {
+          backBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backBtn.addEventListener('click', function() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // --- Wrap tables for horizontal scroll ---
+      [].slice.call(document.querySelectorAll('.post-content table')).forEach(function(table) {
+        if (table.parentNode.classList && table.parentNode.classList.contains('table-wrapper')) return;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-wrapper';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
       });
-    }
+
+    })();
   </script>
 </body>
 </html>

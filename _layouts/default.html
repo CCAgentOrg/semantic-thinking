@@ -44,9 +44,6 @@
       margin: 0 auto;
       padding: 60px 24px 80px;
     }
-
-    /* ---- Navigation ---- */
-    .nav-toggle { display: none; }
     nav {
       display: flex;
       gap: 24px;
@@ -67,50 +64,14 @@
       color: var(--fg);
       margin-right: auto;
     }
-    nav .site-title a { color: var(--fg); text-decoration: none; }
-
-    @media (max-width: 640px) {
-      .container { padding: 32px 16px 60px; }
-      .nav-toggle {
-        display: block;
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: var(--fg);
-        font-size: 24px;
-        padding: 4px;
-        z-index: 10;
-      }
-      nav {
-        flex-wrap: wrap;
-        margin-bottom: 32px;
-      }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 8px;
-        padding: 12px 0;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { font-size: 15px; padding: 6px 0; }
-    }
-
-    /* ---- Typography ---- */
+    nav .site-title a { color: var(--fg); }
+    .nav-toggle { display: none; }
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; }
-      .post-content { font-size: 15px; }
-    }
-
-    /* ---- Post List ---- */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -124,7 +85,6 @@
       display: flex;
       gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
     }
     .post-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
     .post-title a { color: var(--fg); }
@@ -144,16 +104,9 @@
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
-    @media (max-width: 480px) {
-      .home-intro h1 { font-size: 1.6rem; }
-      .home-intro { margin-bottom: 32px; }
-    }
-
-    /* ---- Post Content ---- */
     .post-content { max-width: 680px; }
     .post-content h1 { margin-top: 40px; }
     .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-    .post-content h3 code { font-size: inherit; }
     .post-content code {
       font-family: var(--font-mono);
       font-size: 14px;
@@ -162,21 +115,15 @@
       border-radius: 3px;
       border: 1px solid var(--border);
     }
-    .post-content pre {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      margin: 16px 0;
-    }
     .post-content pre code {
       display: block;
       padding: 16px;
+      overflow-x: auto;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
       font-size: 13px;
       line-height: 1.5;
-      background: none;
-      border: none;
     }
     .post-content blockquote {
       border-left: 3px solid var(--accent);
@@ -185,96 +132,78 @@
       color: var(--fg-muted);
       font-style: italic;
     }
-
-    /* ---- Images ---- */
-    .post-content img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 6px;
-      margin: 16px 0;
-      display: block;
+    .post-content img { max-width: 100%; border-radius: 6px; margin: 16px 0; }
+    /* Image wrapper for large diagrams - adds subtle border & max-height constraint */
+    .post-content .image-wrapper {
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
       border: 1px solid var(--border);
       background: var(--bg-card);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transition: filter 0.3s, border-color 0.2s;
     }
-    .post-content img:hover {
-      border-color: var(--accent);
-    }
-    .post-content .image-container {
-      position: relative;
-      margin: 16px 0;
-    }
-    .post-content .image-container img {
+    .post-content .image-wrapper img {
+      display: block;
+      max-width: 100%;
+      height: auto;
       margin: 0;
-    }
-    .post-content .image-container .zoom-hint {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      font-size: 11px;
-      background: rgba(0,0,0,0.55);
-      color: #fff;
-      padding: 3px 8px;
-      border-radius: 4px;
-      pointer-events: none;
-      opacity: 0;
+      border-radius: 0;
+      cursor: zoom-in;
       transition: opacity 0.2s;
     }
-    .post-content .image-container:hover .zoom-hint {
-      opacity: 1;
+    .post-content .image-wrapper img:hover { opacity: 0.9; }
+    .post-content .image-wrapper .image-caption {
+      padding: 8px 14px;
+      font-size: 13px;
+      color: var(--fg-muted);
+      line-height: 1.5;
+      border-top: 1px solid var(--border);
     }
-
-    /* ---- Fullscreen image overlay ---- */
-    .img-overlay {
-      display: none;
+    /* Lightbox overlay for zoom */
+    .lightbox-overlay {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: rgba(0,0,0,0.88);
-      cursor: zoom-out;
-      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      display: flex;
       align-items: center;
-      padding: 24px;
+      justify-content: center;
+      cursor: zoom-out;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      padding: 20px;
     }
-    .img-overlay.active { display: flex; }
-    .img-overlay img {
-      max-width: 95vw;
-      max-height: 95vh;
+    .lightbox-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox-overlay img {
+      max-width: 100%;
+      max-height: 90vh;
       object-fit: contain;
       border-radius: 4px;
       box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     }
-
-    /* ---- Tables ---- */
-    .table-wrap {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 16px 0;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
     .post-content table {
       width: 100%;
       border-collapse: collapse;
+      margin: 16px 0;
       font-size: 14px;
-      border: none;
-      margin: 0;
     }
     .post-content th, .post-content td {
       padding: 8px 12px;
       border: 1px solid var(--border);
       text-align: left;
-      white-space: nowrap;
     }
     .post-content th { background: var(--bg-card); font-weight: 600; }
-    @media (max-width: 480px) {
-      .post-content th, .post-content td { padding: 6px 8px; font-size: 13px; }
-    }
-
     .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-
-    /* ---- Pagination ---- */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 16px -12px;
+      padding: 0 12px;
+    }
+    .table-wrapper table { margin: 0; min-width: 500px; }
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -286,10 +215,7 @@
       font-size: 14px;
       font-weight: 500;
     }
-
     .about-content { margin-top: 32px; }
-
-    /* ---- Footer ---- */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -297,18 +223,32 @@
       font-size: 13px;
       color: var(--fg-muted);
     }
-    @media (max-width: 480px) {
+    /* Responsive adjustments */
+    @media (max-width: 540px) {
+      .container { padding: 32px 16px 60px; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; }
+      .home-intro h1 { font-size: 1.6rem; }
+      .home-intro p { font-size: 14px; }
+      .post-title { font-size: 1.05rem; }
+      .post-content { font-size: 15px; }
+      .post-content pre code { font-size: 12px; padding: 12px; }
+      .post-content code { font-size: 13px; }
       footer { margin-top: 40px; }
+      .table-wrapper { margin: 12px -8px; padding: 0 8px; }
+      .table-wrapper table { min-width: 400px; }
+      nav { gap: 0; flex-wrap: wrap; }
+      nav .site-title { margin-right: 0; width: 100%; margin-bottom: 8px; }
+      nav a { font-size: 13px; margin-right: 16px; }
+      /* Make images full-bleed on mobile */
+      .post-content .image-wrapper { border-radius: 4px; }
+      .lightbox-overlay { padding: 12px; }
     }
-
-    /* ---- Utility ---- */
-    .sr-only {
-      position: absolute;
-      width: 1px; height: 1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
+    @media (max-width: 380px) {
+      h1 { font-size: 1.3rem; }
+      .container { padding: 24px 12px 48px; }
+      nav a { font-size: 12px; margin-right: 12px; }
+      .post-meta { font-size: 12px; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -316,12 +256,10 @@
   <div class="container">
     <nav>
       <span class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></span>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">&#9776;</button>
-      <div class="nav-links" id="navLinks">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/about/' | relative_url }}">About</a>
-        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-      </div>
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      <a href="https://github.com/CCAgentOrg/semantic-thinking" target="_blank" rel="noopener">Source</a>
     </nav>
     {{ content }}
     <footer>
@@ -329,59 +267,71 @@
     </footer>
   </div>
 
-  <!-- Fullscreen image overlay -->
-  <div class="img-overlay" id="imgOverlay" role="dialog" aria-modal="true" aria-label="Image expanded view">
-    <img id="overlayImg" src="" alt="Expanded view">
+  <!-- Lightbox overlay for image zoom -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="Enlarged diagram">
   </div>
 
   <script>
-  (function() {
-    // ---- Mobile nav toggle ----
-    var toggle = document.getElementById('navToggle');
-    var links = document.getElementById('navLinks');
-    if (toggle && links) {
-      toggle.addEventListener('click', function() {
-        links.classList.toggle('open');
-      });
-    }
+    (function() {
+      // --- Lazy loading for images ---
+      if ('loading' in HTMLImageElement.prototype) {
+        const imgs = document.querySelectorAll('.post-content img:not([loading])');
+        for (const img of imgs) img.setAttribute('loading', 'lazy');
+      }
 
-    // ---- Image click-to-expand overlay ----
-    var overlay = document.getElementById('imgOverlay');
-    var overlayImg = document.getElementById('overlayImg');
-    var images = document.querySelectorAll('.post-content img');
+      // --- Wrap block images in image-wrapper containers ---
+      const content = document.querySelector('.post-content');
+      if (content) {
+        const imgs = content.querySelectorAll('p > img:only-child');
+        for (const img of imgs) {
+          const p = img.parentNode;
+          const alt = img.getAttribute('alt') || '';
+          const wrapper = document.createElement('div');
+          wrapper.className = 'image-wrapper';
+          p.parentNode.replaceChild(wrapper, p);
+          wrapper.appendChild(img);
+          if (alt) {
+            const caption = document.createElement('div');
+            caption.className = 'image-caption';
+            caption.textContent = alt;
+            wrapper.appendChild(caption);
+          }
+        }
+      }
 
-    if (overlay && overlayImg && images.length) {
-      images.forEach(function(img) {
-        img.addEventListener('click', function(e) {
-          e.stopPropagation();
-          overlayImg.src = img.src;
-          overlayImg.alt = img.alt || 'Expanded view';
-          overlay.classList.add('active');
+      // --- Lightbox: click any post-content image to zoom ---
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = lightbox.querySelector('img');
+      document.addEventListener('click', function(e) {
+        const img = e.target.closest('.post-content img, .post-content .image-wrapper img');
+        if (img && !e.target.closest('.lightbox-overlay')) {
+          lightboxImg.src = img.src;
+          lightbox.classList.add('active');
           document.body.style.overflow = 'hidden';
-        });
+          e.preventDefault();
+        }
       });
-
-      overlay.addEventListener('click', function() {
-        overlay.classList.remove('active');
+      lightbox.addEventListener('click', function() {
+        lightbox.classList.remove('active');
         document.body.style.overflow = '';
       });
-
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          overlay.classList.remove('active');
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          lightbox.classList.remove('active');
           document.body.style.overflow = '';
         }
       });
-    }
 
-    // ---- Lazy loading for post images ----
-    if ('loading' in HTMLImageElement.prototype) {
-      // Native lazy loading where supported
-      images.forEach(function(img) {
-        if (!img.loading) img.loading = 'lazy';
-      });
-    }
-  })();
+      // --- Wrap tables in scrollable containers ---
+      const tables = content ? content.querySelectorAll('table') : [];
+      for (const table of tables) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-wrapper';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+    })();
   </script>
 </body>
 </html>

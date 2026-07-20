@@ -18,7 +18,6 @@
       --bg-card: #fff;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       --font-mono: "SF Mono", "Cascadia Code", Consolas, monospace;
-      --nav-h: 48px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -45,52 +44,62 @@
       margin: 0 auto;
       padding: 60px 24px 80px;
     }
-
-    /* ── Navigation ── */
-    nav {
+    /* Responsive nav */
+    .nav-bar {
       display: flex;
+      align-items: center;
       gap: 24px;
       margin-bottom: 48px;
-      align-items: center;
-      position: relative;
     }
-    nav a {
+    .nav-bar a {
       color: var(--fg-muted);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
       transition: color 0.15s;
     }
-    nav a:hover { color: var(--accent); }
-    nav .site-title {
+    .nav-bar a:hover { color: var(--accent); }
+    .nav-bar .site-title {
       font-weight: 700;
       font-size: 16px;
       color: var(--fg);
       margin-right: auto;
     }
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      color: var(--fg);
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; color: var(--fg); }
+    .nav-toggle svg { display: block; }
+    @media (max-width: 640px) {
+      .container { padding: 28px 16px 64px; }
+      .nav-bar { margin-bottom: 32px; position: relative; flex-wrap: wrap; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 0 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        display: block;
+        padding: 8px 0;
+        font-size: 15px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-toggle { display: block; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.2rem; }
+      .home-intro h1 { font-size: 1.6rem; }
+      .home-intro p { font-size: 14px; }
+      .post-title { font-size: 1.1rem; }
+      .post-content { font-size: 15px; }
+      .post-content code { font-size: 13px; word-break: break-word; }
     }
-    .nav-toggle svg {
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
-
-    /* ── Typography ── */
     h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
     h2 { font-size: 1.35rem; margin-top: 32px; margin-bottom: 12px; font-weight: 600; }
     h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; }
     p { margin-bottom: 16px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hover); text-decoration: underline; }
-
-    /* ── Post list (home) ── */
     .post-list { list-style: none; margin: 0; padding: 0; }
     .post-list li {
       padding: 24px 0;
@@ -121,20 +130,12 @@
       background: var(--border);
       color: var(--fg-muted);
     }
-
-    /* ── Home intro ── */
     .home-intro { margin-bottom: 48px; }
     .home-intro h1 { font-size: 2rem; margin-bottom: 12px; }
     .home-intro p { color: var(--fg-muted); font-size: 15px; line-height: 1.7; }
-
-    /* ── Post content ── */
     .post-content { max-width: 680px; }
     .post-content h1 { margin-top: 40px; }
-    .post-content h2 {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
-      margin-top: 40px;
-    }
+    .post-content h2 { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
     .post-content code {
       font-family: var(--font-mono);
       font-size: 14px;
@@ -142,24 +143,22 @@
       padding: 2px 6px;
       border-radius: 3px;
       border: 1px solid var(--border);
-      word-break: break-word;
     }
     .post-content pre {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      margin: 16px 0;
     }
     .post-content pre code {
       display: block;
       padding: 16px;
-      border: none;
-      background: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
       font-size: 13px;
       line-height: 1.5;
-      word-break: normal;
     }
     .post-content blockquote {
       border-left: 3px solid var(--accent);
@@ -168,84 +167,71 @@
       color: var(--fg-muted);
       font-style: italic;
     }
-
-    /* ── Images ── */
-    .post-content .img-container {
-      margin: 20px 0;
-      text-align: center;
-    }
-    .post-content .img-container img {
+    /* Responsive images */
+    .post-content img {
       max-width: 100%;
       height: auto;
       border-radius: 6px;
+      margin: 16px 0;
+      display: block;
       cursor: zoom-in;
-      transition: filter 0.2s;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-    }
-    .post-content .img-container img:hover {
-      filter: brightness(0.95);
+      transition: opacity 0.2s, filter 0.2s;
     }
     @media (prefers-color-scheme: dark) {
-      .post-content .img-container img {
-        border-color: #333;
-      }
-      .post-content .img-container img:hover {
-        filter: brightness(1.1);
+      .post-content img {
+        border: 1px solid var(--border);
       }
     }
-    .post-content .img-caption {
-      display: block;
-      margin-top: 6px;
-      font-size: 13px;
-      color: var(--fg-muted);
-      line-height: 1.4;
+    .post-content img.loading {
+      opacity: 0;
+      filter: blur(8px);
     }
-
-    /* ── Image lightbox (click-to-expand) ── */
-    .lightbox-overlay {
+    .post-content img.loaded {
+      opacity: 1;
+      filter: blur(0);
+    }
+    /* Image lightbox overlay */
+    .img-lightbox {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 9999;
       background: rgba(0,0,0,0.85);
-      cursor: zoom-out;
+      z-index: 9999;
       justify-content: center;
       align-items: center;
-      padding: 24px;
+      cursor: zoom-out;
+      padding: 20px;
     }
-    .lightbox-overlay.active { display: flex; }
-    .lightbox-overlay img {
-      max-width: 100%;
-      max-height: 100%;
+    .img-lightbox.open { display: flex; }
+    .img-lightbox img {
+      max-width: 95vw;
+      max-height: 95vh;
       object-fit: contain;
       border-radius: 4px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.5);
     }
-
-    /* ── Tables ── */
-    .table-wrap {
+    /* Table scroll wrapper */
+    .table-wrapper {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin: 16px 0;
       border-radius: 6px;
       border: 1px solid var(--border);
     }
-    .post-content table {
+    .table-wrapper table {
       width: 100%;
       border-collapse: collapse;
+      border: none;
       font-size: 14px;
-      min-width: max-content;
+      min-width: 480px;
     }
-    .post-content th, .post-content td {
+    .table-wrapper th, .table-wrapper td {
       padding: 8px 12px;
       border: 1px solid var(--border);
       text-align: left;
     }
-    .post-content th { background: var(--bg-card); font-weight: 600; }
+    .table-wrapper th { background: var(--bg-card); font-weight: 600; }
     .post-content hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-
-    /* ── Pagination ── */
     .pagination {
       display: flex;
       justify-content: space-between;
@@ -257,10 +243,7 @@
       font-size: 14px;
       font-weight: 500;
     }
-
     .about-content { margin-top: 32px; }
-
-    /* ── Footer ── */
     footer {
       margin-top: 64px;
       padding-top: 24px;
@@ -268,93 +251,22 @@
       font-size: 13px;
       color: var(--fg-muted);
     }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .container {
-        padding: 28px 16px 60px;
-      }
-      nav {
-        flex-wrap: wrap;
-        gap: 0;
-        margin-bottom: 28px;
-      }
-      nav .site-title {
-        font-size: 15px;
-      }
-      .nav-toggle {
-        display: block;
-        margin-left: auto;
-      }
-      nav .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 0;
-        margin-top: 12px;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        overflow: hidden;
-      }
-      nav .nav-links.open { display: flex; }
-      nav .nav-links a {
-        display: block;
-        padding: 12px 16px;
-        font-size: 15px;
-        border-bottom: 1px solid var(--border);
-      }
-      nav .nav-links a:last-child { border-bottom: none; }
-
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; margin-top: 24px; }
-      .home-intro h1 { font-size: 1.6rem; }
-      .home-intro p { font-size: 14px; }
-      .post-title { font-size: 1.1rem; }
-      .post-content { font-size: 15px; }
-      .post-content pre code { font-size: 12px; padding: 12px; }
-
-      .post-content .img-container {
-        margin: 16px -8px;
-      }
-      .post-content .img-container img {
-        border-radius: 4px;
-      }
-
-      footer {
-        margin-top: 40px;
-      }
-
-      .lightbox-overlay {
-        padding: 12px;
-      }
-    }
-
-    @media (max-width: 400px) {
-      h1 { font-size: 1.3rem; }
-      .container { padding: 20px 12px 48px; }
-      .post-content { font-size: 14px; }
-      .post-content pre code { font-size: 11px; }
-    }
-
-    /* ── Print ── */
-    @media print {
-      .nav-toggle, .lightbox-overlay { display: none !important; }
-      .post-content .img-container img { cursor: default; border: 1px solid #ccc; }
-      body { font-size: 12pt; }
-      .container { max-width: 100%; padding: 20px; }
+    @media (max-width: 640px) {
+      footer { margin-top: 40px; padding-top: 16px; font-size: 12px; }
+      .pagination { flex-direction: column; gap: 8px; }
+      .post-list li { padding: 16px 0; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav>
+    <nav class="nav-bar">
       <span class="site-title"><a href="{{ '/' | relative_url }}" style="color:var(--fg);text-decoration:none;">{{ site.title }}</a></span>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
       <div class="nav-links" id="navLinks">
@@ -368,89 +280,73 @@
       <p>{{ site.title }} &mdash; by {{ site.author }}. Thoughts on AI, technology, and the assumptions we carry.</p>
     </footer>
   </div>
-
-  <div class="lightbox-overlay" id="lightbox">
+  <div class="img-lightbox" id="imgLightbox" onclick="closeLightbox()">
     <img id="lightboxImg" src="" alt="">
   </div>
-
   <script>
+    /* Mobile nav toggle */
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    /* Close mobile nav on link click */
+    document.getElementById('navLinks').addEventListener('click', function() {
+      if (window.innerWidth <= 640) this.classList.remove('open');
+    });
+    /* Lazy load images + click-to-zoom lightbox */
     (function() {
-      // ── Mobile nav toggle ──
-      var toggle = document.getElementById('navToggle');
-      var links = document.getElementById('navLinks');
-      if (toggle && links) {
-        toggle.addEventListener('click', function(e) {
+      var lb = document.getElementById('imgLightbox');
+      var lbImg = document.getElementById('lightboxImg');
+      var imgs = document.querySelectorAll('.post-content img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        img.classList.add('loading');
+        /* Lazy load via IntersectionObserver if available */
+        if ('IntersectionObserver' in window) {
+          var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+              if (e.isIntersecting) {
+                var t = e.target;
+                if (t.dataset.src) t.src = t.dataset.src;
+                t.classList.remove('loading');
+                t.classList.add('loaded');
+                obs.unobserve(t);
+              }
+            });
+          }, { rootMargin: '200px' });
+          obs.observe(img);
+        } else {
+          img.classList.remove('loading');
+          img.classList.add('loaded');
+        }
+        /* Click to open lightbox */
+        img.addEventListener('click', function(e) {
           e.stopPropagation();
-          links.classList.toggle('open');
-        });
-        document.addEventListener('click', function(e) {
-          if (links.classList.contains('open') && !links.contains(e.target) && e.target !== toggle) {
-            links.classList.remove('open');
-          }
+          lbImg.src = this.src;
+          lbImg.alt = this.alt || '';
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
         });
       }
-
-      // ── Image lightbox (click-to-zoom) ──
-      var lightbox = document.getElementById('lightbox');
-      var lightboxImg = document.getElementById('lightboxImg');
-      if (lightbox && lightboxImg) {
-        lightbox.addEventListener('click', function(e) {
-          if (e.target === lightbox || e.target === lightboxImg) {
-            lightbox.classList.remove('active');
-          }
-        });
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            lightbox.classList.remove('active');
-          }
-        });
-      }
-
-      // ── Image enhancement ──
-      var images = document.querySelectorAll('.post-content img');
-      for (var i = 0; i < images.length; i++) {
-        var img = images[i];
-
-        // Wrap standalone images in .img-container with caption
-        if (!img.parentElement.classList.contains('img-container')) {
-          var wrapper = document.createElement('div');
-          wrapper.className = 'img-container';
-
-          var caption = document.createElement('span');
-          caption.className = 'img-caption';
-          caption.textContent = img.getAttribute('alt') || '';
-
-          img.parentElement.insertBefore(wrapper, img);
-          wrapper.appendChild(img);
-          wrapper.appendChild(caption);
+      window.closeLightbox = function() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+      /* Close lightbox on Escape */
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lb.classList.contains('open')) {
+          closeLightbox();
         }
+      });
+    })();
 
-        // Click-to-zoom
-        (function(imgEl) {
-          imgEl.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (lightbox && lightboxImg) {
-              lightboxImg.src = imgEl.src;
-              lightboxImg.alt = imgEl.alt || '';
-              lightbox.classList.add('active');
-            }
-          });
-        })(img);
-
-        // Lazy loading
-        img.setAttribute('loading', 'lazy');
-      }
-
-      // ── Table wrapper ──
-      var tables = document.querySelectorAll('.post-content table');
-      for (var j = 0; j < tables.length; j++) {
-        var table = tables[j];
-        if (!table.parentElement.classList.contains('table-wrap')) {
-          var wrap = document.createElement('div');
-          wrap.className = 'table-wrap';
-          table.parentElement.insertBefore(wrap, table);
-          wrap.appendChild(table);
-        }
+    /* Table wrapper: wrap bare tables with scroll container */
+    (function() {
+      var tables = document.querySelectorAll('.post-content > table');
+      for (var i = 0; i < tables.length; i++) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-wrapper';
+        tables[i].parentNode.insertBefore(wrapper, tables[i]);
+        wrapper.appendChild(tables[i]);
       }
     })();
   </script>
